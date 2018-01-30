@@ -1,8 +1,28 @@
 <html>
 <head>
-<title>Schaal</title>
+	<title>Schaal</title>
 </head>
 <body>
-<p>Je hebt heel zo vaak doorgeklikt dat je bij een gedeelte bent gekomen dat nog niet af is!</p>
+  <p>Schaal 1:<input id="schaal" onkeyup="werkhuis()"></p>
+<table>
+	<tbody>
+		<tr>
+			<td>In werkelijkheid</td>
+			<td><input id="werkhuis" onkeyup="werkhuis()" type="number" />m</td>
+		</tr>
+		<tr>
+			<td>Op schaal</td>
+			<td><input id="huiswerk" onkeyup="huiswerk()" type="number"  />cm</td>
+		</tr>
+	</tbody>
+</table>
+<script><!--
+function werkhuis() {
+document.getElementById("huiswerk").value = Math.round(document.getElementById("werkhuis").value*100/document.getElementById("schaal").value*100000000)/100000000
+}
+function huiswerk() {
+document.getElementById("werkhuis").value = Math.round(document.getElementById("huiswerk").value*document.getElementById("schaal").value/100*100000000)/100000000
+}
+--></script>
 </body>
 </html>
