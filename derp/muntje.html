@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Muntje</title>
+<script>
+var clickpower = 1
+function clickCounter() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+clickpower;
+        } else {
+            localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = "Je hebt " + localStorage.clickcount + " keer op het muntje geklikt.";
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}
+
+</script>
+</head>
+<body>
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpy8Of0Pdzj7giNHdYsJO6DTJ0dVoiR4qB8by2g_Ki47qWn4ZE" style="width:80%" onclick="clickCounter()"></p>
+<div id="result"></div>
+</body>
+</html>
