@@ -108,7 +108,7 @@ if (f < 0) {
 d.setDate(d.getDate() + 1);
 f = f+86400
 }
-if (isNaN(f)) {
+if (Number.isNaN(f)) {
     setTimeout(reset, 500)
 }
 if (document.getElementById("demo").innerHTML != "huh?") {
