@@ -1,8 +1,6 @@
 <html>
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="shortcut icon" href="favicon.ico">
-<title id="titel">Timer2</title>
+<title id="titel">Miauwtimer</title>
 <style>
 div {
     border-style: none;
@@ -90,7 +88,6 @@ d = new Date();
 var x = document.getElementById("input").value
 if (x.toLowerCase() == "heeft revi dit gemaakt?") {
 alert("Ja")
-setTimeout(reset, 500)
 }
 x = x.split(":");
 d.setHours(x[0]);
@@ -110,6 +107,9 @@ var f = d.getTime() /1000 - e.getTime() / 1000;
 if (f < 0) {
 d.setDate(d.getDate() + 1);
 f = f+86400
+}
+if (isNaN(f)) {
+    setTimeout(reset, 500)
 }
 if (document.getElementById("demo").innerHTML != "huh?") {
 document.getElementById("demo").innerHTML = Math.ceil(f);
