@@ -22,8 +22,8 @@ img {
 }
 </style>
 </head>
-<body>
-<!-- Versie 2 feb 2018 -->
+<body onkeypress="toets(event)">
+<!-- Versie 3 feb 2018 -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC"  onclick="thema(nm+1)" alt="" /></div>
@@ -48,6 +48,21 @@ document.getElementById("demo").style.color = arrkleur1[nm]
 document.getElementsByTagName("DIV")[0].style.display = "none"
 setTimeout(function() {document.getElementsByTagName("DIV")[0].style.display = "block"; }, 1)
 nml = nm+1
+}
+
+function toets(event) {
+var omnum = "74561230".split("")
+var x = String.fromCharCode(event.keyCode)
+if (x == "i") {
+thema(omnum[nm])
+}
+var i
+var kleurkeys = "krgbcmyw".split("")
+for (i=0;i<8;i++) {
+if (kleurkeys[i] == x || i == x) {
+thema(i)
+}
+}
 }
 
 var beldelay = "-3"
@@ -123,8 +138,8 @@ function klokje() {
 if (klok) {
 var f = d - new Date()
 f=f/1000
+document.getElementById("titel").innerHTML = Math.ceil(f)
 document.getElementById("demo").innerHTML = Math.ceil(f);
-document.getElementById("titel").innerHTML = document.getElementById("demo").innerHTML;
 if (document.getElementById("demo").innerHTML < 0) {
 reset();
 }
