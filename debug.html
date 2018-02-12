@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<iframe id="myframe" src="index.html"></iframe>
+
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("myframe").src = prompt("src?", "index.html")
+setInterval(myFunction, 50)
+function myFunction() {
+    var x = document.getElementById("myframe");
+    var y = (x.contentWindow || x.contentDocument);
+    if (y.document)y = y.document;
+    document.getElementById("demo").innerHTML = y.body.innerHTML.split("<").join("&lt;");
+}
+</script>
+
+</body>
+</html>
