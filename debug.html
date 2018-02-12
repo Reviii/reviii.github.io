@@ -14,7 +14,7 @@ function myFunction() {
     var x = document.getElementById("myframe");
     var y = (x.contentWindow || x.contentDocument);
     if (y.document)y = y.document;
-    document.getElementById("demo").innerHTML = y.body.innerHTML.split("<").join("&lt;");
+    document.getElementById("demo").innerHTML = y.getElementsByTagName("html")[0].outerHTML.split("<").join("&lt;");
 }
 </script>
 
