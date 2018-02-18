@@ -1,3 +1,2 @@
 # miauwtimer
-* miauw
-> miauw
+* miauwtimer.getforge.io
