@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Silhouette-boost</title>
+</head>
+<body>
+<style>
+  .thumb {
+    display: none;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+<input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
+<button onclick="boost()">boost</button>
+<script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          document.getElementById('list').innerHTML = ['<img id="scream" class="thumb" onload="boost()" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+function boost() {
+    var s = document.getElementById("scream")
+    var c = document.getElementById("myCanvas");
+    c.width = s.width
+    c.height = s.height
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("scream");
+    ctx.drawImage(img, 0, 0);
+    var imgData = ctx.getImageData(0, 0, c.width, c.height);
+    // invert colors
+    var i;
+    var r = prompt("Boost (1 of hoger)","")
+    for (i = 0; i < imgData.data.length; i += 4) {
+        imgData.data[i] = 255-(255-imgData.data[i])*r;
+        imgData.data[i+1] = 255-(255-imgData.data[i+1])*r;
+        imgData.data[i+2] = 255-(255-imgData.data[i+2])*r;
+        imgData.data[i+3] = 255;
+    }
+    ctx.putImageData(imgData, 0, 0);
+    document.getElementById("url").innerHTML = "<img src=" + c.toDataURL("image/png") + " style=height:50%>"
+};
+</script>
+<canvas id="myCanvas" width=3264 height=2448 style=display:none>no support</canvas><br><p id="url">h</p>
+</body>
+</html>
