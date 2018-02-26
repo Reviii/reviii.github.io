@@ -20,6 +20,7 @@ var p = "-"
 if (checked) {
 p = "+"
 }
+var s = atob("sg==")
 for (a=1;a<document.getElementById("a").value;a++) {
 for (b=1;b<document.getElementById("b").value;b++) {
 if (checked) {
@@ -28,7 +29,7 @@ var ans = Math.sqrt(a*a+b*b+a*b)
 var ans = Math.sqrt(a*a+b*b-a*b)
 }
 if (ans==Math.floor(ans)) {
-x = x+a+"²+"+b+"²"+p+a+"*"+b+"="+ans+"²<br>"
+x = x+a+s+"+"+b+s+""+p+a+"*"+b+"="+ans+s+"<br>"
 }
 }
 }
