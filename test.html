@@ -23,7 +23,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 22 feb 2018.Toetsenbordbesturing.pijl (experimentele versie) -->
+<!-- Versie 27 feb 2018.Toetsenbordbesturing.pijl (experimentele versie) -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
@@ -67,7 +67,7 @@ thema(i)
 
 function pijl(event) {
 if (event.keyCode == 37 || event.keyCode == 38) {
-thema(nm-1)
+thema(nm+7)
 }
 if (event.keyCode == 39 || event.keyCode == 40) {
 thema(nm+1)
