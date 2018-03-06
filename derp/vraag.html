@@ -28,6 +28,7 @@ var text = ""
 for (i=0;i<antwoorden.length-1;i++) {
 text = text+"Wat is "+antwoorden[i]+"?<br>"+antwoorden[i+1]+"<br><br>"
 }
+i=i-1
 document.body.innerHTML = "Score: "+i+"<br><br>"+text
 }
 document.getElementById("antwoord").focus()
