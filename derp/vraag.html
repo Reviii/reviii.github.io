@@ -4,7 +4,7 @@
 <title>Vragenlijst</title>
 </head>
 <body>
-<p>Korte antwoorden geven (Wat ben je? een vogel)</p>
+<p>Korte antwoorden geven (Wat is een vogel? een dier)</p>
 <p id="vraag">Wat is een paard?</p>
 <input id="antwoord" autocapitalize="none"><button onclick="vraag()">Volgende</button>
 <script>
@@ -29,7 +29,7 @@ for (i=0;i<antwoorden.length-1;i++) {
 text = text+"Wat is "+antwoorden[i]+"?<br>"+antwoorden[i+1]+"<br><br>"
 }
 i=i-1
-document.body.innerHTML = "Score: "+i+"<br><br>"+text
+document.body.innerHTML = "Score: <span onclick='document.body.innerHTML+=JSON.stringify(antwoorden)'>"+i+"</span><br><br>"+text
 }
 document.getElementById("antwoord").focus()
 }
