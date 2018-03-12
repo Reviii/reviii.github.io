@@ -9,11 +9,12 @@
 <input id="antwoord" autocapitalize="none"><button onclick="vraag()">Volgende</button>
 <script>
 var antwoorden = ["een paard"]
+var i;
+var text = ""
 function vraag() {
 var antwoord = document.getElementById("antwoord").value
 document.getElementById("antwoord").value = ""
 var goed = true
-var i;
 for (i=0;i<antwoorden.length;i++) {
 if (antwoorden[i] == antwoord) {
 goed = false
@@ -23,15 +24,20 @@ antwoorden[antwoorden.length] = antwoord
 if (goed) {
 document.getElementById("vraag").innerHTML = "Wat is "+antwoord+"?"
 } else {
-var i;
-var text = ""
 for (i=0;i<antwoorden.length-1;i++) {
 text = text+"Wat is "+antwoorden[i]+"?<br>"+antwoorden[i+1]+"<br><br>"
 }
 i=i-1
-document.body.innerHTML = "Score: <span onclick='document.body.innerHTML+=JSON.stringify(antwoorden)'>"+i+"</span><br><br>"+text
+document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text
 }
 document.getElementById("antwoord").focus()
+}
+  
+function cool() {
+document.body.innerHTML+="<h4>Extra dingen</h4>JSON:<br>"+JSON.stringify(antwoorden)+"<br>Terugscript:<br>antwoorden = "+JSON.stringify(antwoorden.slice(0,antwoorden.length-1))+'<br>document.getElementById("vraag").innerHTML="Wat is '+antwoorden[antwoorden.length-2]+'?"'+'<br><br><span onclick="nietcool()" color="#00FFFF"><u>Terug</u></span>'
+}
+function nietcool() {
+document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text
 }
 </script>
 </body>
