@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>Haal een 5.5</title>
+</head>
+<body>
+
+<h2>Haal een 5.5</h2><br>
+<b>Cijfer (nu):<input id="cijfer">Totale weging (nu):<input id="weging"><br>Weging nieuw cijfer:<input id="weging2"><br>Doel:</b><input id="doel"><button onclick="miauw()">MIAUW</button>
+
+<p id="demo"></p>
+
+<script>
+function miauw() {
+var b = "("
+var cijfer = document.getElementById("cijfer").value
+var weging1 = document.getElementById("weging").value
+var weging2 = document.getElementById("weging2").value
+var weging = Number(weging1) + Number(weging2)
+var doel = document.getElementById("doel").value
+b += doel+"*("+weging1+"+"+weging2+")"
+doel = doel * weging
+var nu = cijfer * weging1
+b += "-"+cijfer+"*"+weging1
+var x = doel - nu
+x = x / weging2
+b += ")/"+weging2+" = "+x
+document.getElementById("demo").innerHTML = x+"<br>Berekening: "+b;
+}
+</script>
+
+</body>
+</html>
