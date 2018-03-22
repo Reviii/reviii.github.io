@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gemiddeld</title>
+</head>
+<body>
+<p id="demo"></p>
+Cijfer:<input type="number">Weging:<input type="number"><button onclick="gemiddeld()">Volgende</button>
+<p id="gem"></p>
+<script>
+var cijfer = [];
+var weging = [];
+function gemiddeld() {
+var inputs = document.getElementsByTagName("input")
+cijfer[cijfer.length] = inputs[0].value
+weging[weging.length] = inputs[1].value
+var i;
+var t1 = 0;
+var t2 = 0;
+for (i=0;i<cijfer.length;i++) {
+t1 = t1+Number(cijfer[i])*Number(weging[i])
+t2 = t2+Number(weging[i])
+}
+document.getElementById("demo").innerHTML += inputs[0].value+" "+inputs[1].value+"<br>"
+var g = t1/t2
+document.getElementById("gem").innerHTML = "Gemiddelde: "+g
+inputs[0].value = ""
+inputs[1].value = ""
+inputs[0].focus()
+}
+</script>
+</body>
+</html>
