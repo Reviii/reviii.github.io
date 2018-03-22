@@ -5,7 +5,8 @@
 </head>
 <body>
 <p id="demo"></p>
-Cijfer:<input type="number">Weging:<input type="number"><button onclick="gemiddeld()">Volgende</button>
+Cijfer:<input type="number">Weging:<input type="number"><button onclick="gemiddeld()">Volgende</button><button onclick="document.getElementById('import').style.display='inline'">Importeer cijfers</button><br>
+<textarea id="import" placeholder="Plak het hier" onblur="cijfers()" style="display:none"></textarea>
 <p id="gem"></p>
 <script>
 var cijfer = [];
@@ -27,6 +28,26 @@ document.getElementById("gem").innerHTML = "Gemiddelde: "+g+"<br>Totale weging: 
 inputs[0].value = ""
 inputs[1].value = ""
 inputs[0].focus()
+}
+  
+function cijfers() {
+document.getElementById("demo").innerHTML = ""
+cijfer = []
+weging = []
+var en = window.atob("Cg==")
+var text = document.getElementById("import").value.split(en)
+alert(JSON.stringify(text))
+var i;
+for (i=0;i<text.length-1;i++) {
+cijfer[cijfer.length] = text[i].split(" ")[0]
+weging[weging.length] = text[i].split(" ")[1]
+document.getElementById("demo").innerHTML += text[i].split(" ")[0]+" "+text[i].split(" ")[1]+"<br>"
+}
+var inputs = document.getElementsByTagName("input")
+inputs[0].value = text[text.length-2].split(" ")[0]
+inputs[1].value = text[text.length-2].split(" ")[1]
+document.getElementById("import").style.display="none"
+gemiddeld()
 }
 </script>
 </body>
