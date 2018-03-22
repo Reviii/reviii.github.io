@@ -6,7 +6,7 @@
 <body>
 <p id="demo"></p>
 Cijfer:<input type="number">Weging:<input type="number"><button onclick="gemiddeld()">Volgende</button><button onclick="document.getElementById('import').style.display='inline'">Importeer cijfers</button><br>
-<textarea id="import" placeholder="Plak het hier (met het word het stukje waar je je cijfers ziet bedoeld)" onblur="cijfers()" style="display:none"></textarea>
+<textarea id="import" onblur="cijfers()" placeholder="Plak het hier (met het word het stukje waar je je cijfers ziet bedoeld)" rows="10" style="display:none"></textarea>
 <p id="gem"></p>
 <script>
 var cijfer = [];
