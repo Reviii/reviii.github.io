@@ -38,6 +38,13 @@ img {
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 
 <script>
+if (location.href.split("io/")[0] == "http://miauwtimer.getforge.") {
+  var u1 = location.href.split("io/")[1]
+  var u2 = "https://reviii.github.io/miauwtimer/"+u1
+  if (confirm("Op 1 mei stopt miauwtimer.getforge.io/"+u1+",\nals je nu op OK drukt ga je naar\n"+u2)) {
+      location.href = u2
+  }
+}
 var autostart = false
 var klok = false
 var klok2 = setInterval(klokje, 50);
