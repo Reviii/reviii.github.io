@@ -17,6 +17,13 @@
 	</tbody>
 </table>
 <script><!--
+if (location.href.split("io/")[0] == "http://miauwtimer.getforge.") {
+  var u1 = location.href.split("io/")[1]
+  var u2 = "https://reviii.github.io/miauwtimer/"+u1
+  if (confirm("Op 1 mei stopt miauwtimer.getforge.io/"+u1+",\nals je nu op OK drukt ga je naar\n"+u2)) {
+      location.href = u2
+  }
+}
 function werkhuis() {
 document.getElementById("huiswerk").value = Math.round(document.getElementById("werkhuis").value*100/document.getElementById("schaal").value*100000000)/100000000
 }
