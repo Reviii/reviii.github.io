@@ -32,7 +32,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 20 mrt 2018.Toetsenbordbesturing.pijl (experimentele versie) -->
+<!-- Versie 18 mei 2018.thema.nm (experimentele versie) -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
@@ -51,11 +51,13 @@ var klok2 = setInterval(klokje, 50);
 
 document.getElementsByTagName("DIV")[0].style.display = "none"
 var nm = 0
+var nml;
 var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
 var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00", "#0000ff", "#000000"]
-nml = 1
 function thema(nml) {
+if (nml) {
 nm = nml
+}
 while (nm > 7) { 
 nm = nm-8
 }
@@ -90,7 +92,7 @@ thema(nm+1)
 }
 }
 
-var beldelay = "-8"
+var beldelay = "-9"
 bel()
 function bel() {
 var belsec = "29700 33000 36000 37200 39000 40200 43200 44700 45000 46200 48000 51000 54000 57000 60000".split(" ")
