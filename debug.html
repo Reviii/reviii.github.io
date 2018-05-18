@@ -2,16 +2,16 @@
 <html>
 <body>
 
-<iframe id="myframe" src="index.html"></iframe>
+<iframe id="myframe" src="index.html"></iframe><textarea onchange="x.contentWindow.eval(this.value)"></textarea>
 
 
 <p id="demo"></p>
 
 <script>
 document.getElementById("myframe").src = prompt("src?", "index.html")
+var x = document.getElementById("myframe")
 setInterval(myFunction, 50)
 function myFunction() {
-    var x = document.getElementById("myframe");
     var y = (x.contentWindow || x.contentDocument);
     if (y.document)y = y.document;
     document.getElementById("demo").innerHTML = y.getElementsByTagName("html")[0].outerHTML.split("<").join("&lt;").split("\n").join("<br>");
