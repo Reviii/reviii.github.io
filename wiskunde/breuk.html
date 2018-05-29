@@ -1,10 +1,33 @@
 <html>
 <head>
 <title>Decimaal naar breuk</title>
+<style>
+.frac {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+}
+.frac > span {
+    display: block;
+    padding: 0.1em;
+}
+.frac span.bottom {
+    border-top: thin solid black;
+}
+.frac span.symbol {
+    display: none;
+} 
+</style>
 </head>
 <body>
-<input id="een">.<input id="decimaal">Herhaal:<input id="herhaal"><button onclick="breuk()">Bereken breuk</button>
-<p id="output"></p>
+<input id="een">.<input id="decimaal">Herhaal:<input id="herhaal"><button onclick="breuk()">Bereken breuk</button><br>
+<span id="out1">x</span> <div class="frac">
+    <span id="out2">x</span>
+    <span class="symbol">/</span>
+    <span class="bottom" id="out3">x</span>
+</div>
 <script>
 function breuk() {
     var n = document.getElementById("een").value
@@ -25,7 +48,9 @@ function breuk() {
     var lg = gcd(la, lb)
     la = la/lg
     lb = lb/lg
-    alert(n+" "+la+"/"+lb)
+    document.getElementById("out1").innerHTML = Number(n).toString(10)
+    document.getElementById("out2").innerHTML = la
+    document.getElementById("out3").innerHTML = lb
 }
 
 function gcd(a, b) {
