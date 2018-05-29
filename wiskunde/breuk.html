@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Decimaal naar breuk</title>
+</head>
+<body>
+<input id="een">.<input id="decimaal">Herhaal:<input id="herhaal"><button onclick="breuk()">Bereken breuk</button>
+<p id="output"></p>
+<script>
+function breuk() {
+    var n = document.getElementById("een").value
+    var da = document.getElementById("decimaal").value
+    var db = Math.pow(10, da.length)
+    var dg = gcd(da, db)
+    var ha = document.getElementById("herhaal").value
+    var hb = (Math.pow(10, ha.length)-1)*db
+    var hg = gcd(ha, hb)
+    da = da/dg
+    db = db/dg
+    ha = ha/hg
+    hb = hb/hg
+    var lb = Math.abs(db*hb)/gcd(db, hb)
+    da = da*lb/db
+    ha = ha*lb/hb
+    var la = da+ha
+    var lg = gcd(la, lb)
+    la = la/lg
+    lb = lb/lg
+    alert(n+" "+la+"/"+lb)
+}
+
+function gcd(a, b) {
+    var t = b;
+    while (b != 0) {
+       t = b; 
+       b = a % b; 
+       a = t;
+    } 
+    return a;
+}
+</script>
+</body>
+</html>
