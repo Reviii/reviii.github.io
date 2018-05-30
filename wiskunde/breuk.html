@@ -51,6 +51,13 @@ function breuk() {
     la = la/lg
     lb = lb/lg
     var x = 0;
+    if (lb == 1) {
+    x = la;
+    la = 0;
+    document.getElementById("frac").style.visibility = "hidden"
+    } else {
+    document.getElementById("frac").style.visibility = "visible"
+    }
     n = Number(n)+x
     document.getElementById("out1").innerHTML = n.toString(10)
     document.getElementById("out2").innerHTML = la
