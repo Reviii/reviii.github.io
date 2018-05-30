@@ -43,14 +43,16 @@ function breuk() {
     db = db/dg
     ha = ha/hg
     hb = hb/hg
-    var lb = Math.abs(db*hb)/gcd(db, hb)
+    var lb = Math.abs(db)/gcd(db, hb)*Math.abs(hb)
     da = da*lb/db
     ha = ha*lb/hb
     var la = da+ha
     var lg = gcd(la, lb)
     la = la/lg
     lb = lb/lg
-    document.getElementById("out1").innerHTML = Number(n).toString(10)
+    var x = 0;
+    n = Number(n)+x
+    document.getElementById("out1").innerHTML = n.toString(10)
     document.getElementById("out2").innerHTML = la
     document.getElementById("out3").innerHTML = lb
 }
