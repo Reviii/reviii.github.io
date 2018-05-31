@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<iframe id="myframe" src="index.html"></iframe><textarea onchange="document.getElementById('eval').innerHTML = x.contentWindow.eval(this.value)"></textarea><span id="eval"></span>
+<iframe id="myframe" src="index.html"></iframe><textarea onblur="document.getElementById('eval').innerHTML = x.contentWindow.eval(this.value)"></textarea><span id="eval"></span>
 
 
 <p id="demo"></p>
