@@ -58,8 +58,11 @@ function breuk() {
     } else {
     document.getElementById("frac").style.visibility = "visible"
     }
-    n = Number(n)+x
-    document.getElementById("out1").innerHTML = n.toString(10)
+    n = (Number(n)+x).toString(10)
+    if (n == 0) {
+        n = ""
+    }
+    document.getElementById("out1").innerHTML = n
     document.getElementById("out2").innerHTML = la
     document.getElementById("out3").innerHTML = lb
 }
