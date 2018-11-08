@@ -32,19 +32,12 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 18 mei 2018.thema.nm (experimentele versie) beldelay:18 sep -->
+<!-- Versie 18 mei 2018.thema.nm (experimentele versie) beldelay:8 nov -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 
 <script>
-if (location.href.split("io/")[0] == "http://miauwtimer.getforge.") {
-  var u1 = location.href.split("io/")[1]
-  var u2 = "https://reviii.github.io/miauwtimer/"+u1
-  if (confirm("Op 1 mei stopt miauwtimer.getforge.io/"+u1+",\nals je nu op OK drukt ga je naar\n"+u2)) {
-      location.href = u2
-  }
-}
 var autostart = false
 var klok = false
 var klok2 = setInterval(klokje, 50);
@@ -92,7 +85,7 @@ thema(nm+1)
 }
 }
 
-var beldelay = "5"
+var beldelay = "4"
 bel()
 function bel() {
 var belsec = "29700 33000 36000 37200 39000 40200 43200 44700 45000 46200 48000 51000 54000 57000 60000".split(" ")
