@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Parabool</title>
+</head>
+<body>
+P1:<input><input><br>
+P2:<input><input><br>
+P3:<input><input>
+<button onclick="bereken()">Bereken formule</button>
+<p id=formule></p>
+<script>
+function bereken() {
+var in = document.getElementsByTagName("input")
+var p1 = [in[0].value,in[1].value]
+var p2 = [in[2].value,in[3].value]
+var p3 = [in[4].value,in[5].value]
+var p = parabool(p1, p2, p3)
+var text = p[0]+"xx+"+p[1]+"x+"+p[2]
+document.getElementById("formule").innerHTML = text
+}
+function parabool(p1, p2, p3) {
+var al = (p1[1]-p2[1])/(p1[0]-p2[0])
+var bl = p1[1]-p1[0]*al
+p1[1] = p1[1]-p1[0]*al-bl
+p2[1] = p2[1]-p2[0]*al-bl
+p3[1] = p3[1]-p3[0]*al-bl
+var a = p3[1]/(p3[0]-p1[0])/(p3[0]-p2[0])
+var b = a*(-p1[0]-p2[0])+al
+var c = a*(p1[0]*p2[0])+bl
+return [a, b, c]
+}
+</script>
+</body>
+</html>
