@@ -7,15 +7,37 @@ P1:<input><input><br>
 P2:<input><input><br>
 P3:<input><input>
 <button onclick="bereken()">Bereken formule</button>
-<p id=formule></p>
+<p id="formule"></p>
 <script>
 function bereken() {
-var in = document.getElementsByTagName("input")
-var p1 = [in[0].value,in[1].value]
-var p2 = [in[2].value,in[3].value]
-var p3 = [in[4].value,in[5].value]
+var inp = document.getElementsByTagName("input")
+alert(inp[0].value)
+var p1 = [inp[0].value,inp[1].value]
+var p2 = [inp[2].value,inp[3].value]
+var p3 = [inp[4].value,inp[5].value]
 var p = parabool(p1, p2, p3)
-var text = p[0]+"xx+"+p[1]+"x+"+p[2]
+var t1 = p[0]+"xx"
+var t2= "+"+p[1]+"x"
+var t3 = "+"+p[2]
+if (p[1] < 0) {
+t2 = "-"+Math.abs(p[1])+"x"
+}
+if (p[2] < 0) {
+t3 = "-"+Math.abs(p[2])
+}
+if (p[2]==0) {
+t3 = ""
+}
+if (p[1]==0) {
+t2 = ""
+}
+if (p[0]==0) {
+t1 = ""
+if (p[1]>0) {
+t2 = t2.slice(1)
+}
+}
+var text = t1+t2+t3
 document.getElementById("formule").innerHTML = text
 }
 function parabool(p1, p2, p3) {
