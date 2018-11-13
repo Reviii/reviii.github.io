@@ -32,7 +32,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 18 mei 2018.thema.nm (experimentele versie) beldelay:8 nov -->
+<!-- Versie 13 nov 2018.thema.fix (experimentele versie) -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
@@ -44,13 +44,9 @@ var klok2 = setInterval(klokje, 50);
 
 document.getElementsByTagName("DIV")[0].style.display = "none"
 var nm = 0
-var nml;
 var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
 var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00", "#0000ff", "#000000"]
-function thema(nml) {
-if (nml) {
-nm = nml
-}
+function thema(nm) {
 while (nm > 7) { 
 nm = nm-8
 }
@@ -58,7 +54,7 @@ document.body.style.backgroundColor = arrkleur2[nm];
 document.getElementById("demo").style.color = arrkleur1[nm]
 document.getElementsByTagName("DIV")[0].style.display = "none"
 setTimeout(function() {document.getElementsByTagName("DIV")[0].style.display = "block"; }, 1)
-nml = nm+1
+nm = nm+1
 }
 
 function toets(event) {
