@@ -35,6 +35,9 @@ t1 = ""
 if (p[1]>0) {
 t2 = t2.slice(1)
 }
+if (p[1]==0 && p[2]>0) {
+t3 = t3.slice(1)
+}
 }
 var text = t1+t2+t3
 document.getElementById("formule").innerHTML = text
