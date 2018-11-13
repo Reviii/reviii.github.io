@@ -18,6 +18,12 @@ var p = parabool(p1, p2, p3)
 var t1 = p[0]+"x"+atob("sg==")
 var t2= "+"+p[1]+"x"
 var t3 = "+"+p[2]
+if (p[0]==1) {
+t1 = "x"+atob("sg==")
+}
+if (p[1]==1) {
+t1 = "+x"
+}
 if (p[1] < 0) {
 t2 = "-"+Math.abs(p[1])+"x"
 }
