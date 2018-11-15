@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Message</title>
+</head>
+<body>
+<input id="message" onkeypress="encode()">
+<script>
+function encode() {
+var msg = document.getElementById("message").value
+var text = ""
+for (var i=0;i<msg.length;i++) {
+text += msg.slice(0, i+1)+"<br>"
+}
+for (;i>0;i--) {
+text += msg.slice(0, i)+"<br>"
+}
+alert(i)
+document.body.innerHTML = text
+}
+</script>
+</body>
+</html>
