@@ -3,7 +3,7 @@
 <title>Message</title>
 </head>
 <body>
-<input id="message" onkeypress="encode()"><p id="result"></p>
+<input id="message" onkeyup="setTimeout(encode, 50)"><p id="result"></p>
 <script>
 function encode() {
 var msg = document.getElementById("message").value
