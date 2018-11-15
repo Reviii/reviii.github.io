@@ -3,7 +3,7 @@
 <title>Message</title>
 </head>
 <body>
-<input id="message" onkeypress="encode()">
+<input id="message" onkeypress="encode()"><p id="result"></p>
 <script>
 function encode() {
 var msg = document.getElementById("message").value
@@ -15,7 +15,7 @@ for (;i>0;i--) {
 text += msg.slice(0, i)+"<br>"
 }
 alert(i)
-document.body.innerHTML = text
+document.getElementById("result").innerHTML = text
 }
 </script>
 </body>
