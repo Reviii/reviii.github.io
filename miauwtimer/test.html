@@ -32,17 +32,16 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 13 nov 2018.thema.fix2 (experimentele versie) beldelay: 29 nov 2018 -->
-<input id="input"><button onClick="start()" id="knop">aftellen!</button>
+<!-- Versie 11 dec 2018.thema.beforestart (experimentele versie) beldelay: 29 nov 2018 -->
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
+<input id="input"><button onClick="start()" id="knop">aftellen!</button>
 
 <script>
 var autostart = false
 var klok = false
 var klok2 = setInterval(klokje, 50);
 
-document.getElementsByTagName("DIV")[0].style.display = "none"
 var nm = 0
 var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
 var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00", "#0000ff", "#000000"]
@@ -54,8 +53,6 @@ nm = nm-8
 }
 document.body.style.backgroundColor = arrkleur2[nm];
 document.getElementById("demo").style.color = arrkleur1[nm]
-document.getElementsByTagName("DIV")[0].style.display = "none"
-setTimeout(function() {document.getElementsByTagName("DIV")[0].style.display = "block"; }, 1)
 nml = nm+1
 }
 
@@ -111,7 +108,6 @@ function start() {
 document.getElementById("input").style.visibility = "hidden"
 document.getElementById("knop").style.visibility  = "hidden"
 document.getElementById("demo").style.visibility = "visible"
-document.getElementsByTagName("DIV")[0].style.display = "block"
 document.getElementById("demo").innerHTML = ""
 document.body.addEventListener("keypress", toets)
 document.body.addEventListener("keydown", pijl)
@@ -168,7 +164,6 @@ function reset() {
 document.getElementById("input").style.visibility = "visible"
 document.getElementById("knop").style.visibility = "visible"
 document.getElementById("demo").style.visibility = "hidden"
-document.getElementsByTagName("DIV")[0].style.display = "none"
 document.body.removeEventListener("keypress", toets)
 document.body.removeEventListener("keydown", pijl)
 klok = false
