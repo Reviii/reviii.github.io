@@ -32,7 +32,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 13 dec 2018.thema.onstart (experimentele versie) beldelay: 29 nov 2018 -->
+<!-- Versie 13 dec 2018.thema.onstart+anticrash (experimentele versie) beldelay: 29 nov 2018 -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
@@ -49,9 +49,7 @@ var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00
 nml = 1
 function thema(nml) {
 nm = nml
-while (nm > 7) { 
-nm = nm-8
-}
+nm = nm%8
 document.body.style.backgroundColor = arrkleur2[nm];
 document.getElementById("demo").style.color = arrkleur1[nm]
 document.getElementsByTagName("DIV")[0].style.display = "none"
