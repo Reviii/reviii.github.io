@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Eenheden</title>
+</head>
+<body>
+<form onkeyup="bereken()"><input id="in"><input id="v">m<sup><input size=1 id="p" value=1></sup><br><span id="out"></span><input id="v2">m<sup><span id=p2>1</span></sup><button onclick="bereken()" type="button">Bereken</button></form>
+<script>
+function bereken() {
+var a = document.getElementById("in").value
+var v1 = document.getElementById("v").value
+var v2 = document.getElementById("v2").value
+var p = document.getElementById("p").value
+document.getElementById("p2").innerHTML = p
+var vs = {nano: 1E-9, micro: 1E-6, milli: 0.001, centi: 0.01, deci: 0.1, "":1, deca: 10, hecto: 100, kilo: 1000, mega: 1E6, giga: 1E9, tera: 1E12, n: 1E-9, μ: 1E-6, m: 0.001, c: 0.01, d: 0.1, da: 10, h: 100, k: 1000, M: 1E6, G: 1E9, T: 1E12}
+document.getElementById("out").innerHTML = Math.pow(vs[v1], p)*a/Math.pow(vs[v2], p)
+}
+</script>
+</body>
+</html>
