@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Miauwtimer-Home</title>
+</head>
+<body>
+  <h1 style="text-align: center;">Selecteer een categorie:</h1><p style="text-align: center;" id="links">
+  <a href="miauwtimer/miauw.html">Miauwtimer</a><br><br>
+  <a href="school.html">School</a><br><br>
+  <a href="derp/">Derp/test</a><br><br>
+  <a href="https://goo.gl/forms/Mc7WGiudtsDmMARH3">Een probleem melden</a></p><h6>Er zitten misschien nog levenloze links tussen</h6>
+<script>
+var links = [{"name":"Miauwtimer","href":"miauwtimer/miauw.html", "links":[{"name":"(Gewone) Miauwtimer","href":"miauwtimer/"},{"name":"Experimentele versie","href":"miauwtimer/test.html"},{"name":"Webapp (iAs)","href":"miauwtimer/webapp.html"}]},{"name":"School","href":"school.html","links":[{"name":"Wiskunde","href":"wiskunde/","links":[{"name":"Decimaal getal naar breuk","href":"wiskunde/breuk.html"},{"name":"Schaalrekenen","href":"wiskunde/schaal.html"}]},{"name":"Natuurkunde","href":"natuurkunde/","links":[{"name":"Eenheden omreken","href":"natuurkunde/eenheden.html"}]}]},{"name":"Derp/test","href":"derp/",links:[{"name":"Img viewer","href":"derp/img.html"},{"name":"Kat","href":"derp/kat.html"},{"name":"Kleurmail","href":"derp/kleurmail.html"},{"name":"Message driehoek","href":"msgp.html"},{"name":"Muntje","href":"derp/muntje.html"},{"name":"Silhouette-boost","href":"silhouette.html"},{"name":"Verkleur","href":"derp/verkleur.html"},{"name":"Vragenlijst","href":"vraag.html"}]},{"name":"Een probleem melden","href":"https://goo.gl/forms/Mc7WGiudtsDmMARH3"}]
+mauw(links)
+function mauw(links) {
+    if (links[0].links) {
+    var text="<a href='javascript:mauw("+JSON.stringify(links[0].links)+")'>"+links[0].name+"</a>";
+    } else {
+        var text="<a href='"+links[0].href+"'>"+links[0].name+"</a>";
+    }
+    for (var i=1;i<links.length;i++) {
+        if (links[i].links) {
+            text+="<br><br><a href='javascript:mauw("+JSON.stringify(links[i].links)+")'>"+links[i].name+"</a>";
+        } else {
+            text+="<br><br><a href='"+links[i].href+"'>"+links[i].name+"</a>";
+        }
+    }
+    document.getElementById("links").innerHTML=text
+}
+</script>
+</body>
+</html>
