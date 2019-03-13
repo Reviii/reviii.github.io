@@ -5,6 +5,7 @@
 function solve()  {
     var f = document.getElementById("f").value;
     f = f.split(" ").join("").split("-").join("").split(">")
+    if (!f[1]) f[1]=""
     f[0] = f[0].split("+")
     f[1] = f[1].split("+")
     f[0] = f[0].map(splitElement)
