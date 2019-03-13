@@ -26,7 +26,15 @@ function splitElement(element) {
     return obj
 }
 function splitKat(kat) {
-    kat = kat.split(/(?=(?<![0-9])[0-9])/)
+    // kat = kat.split(/(?=(?<![0-9])[0-9])/) // Werkt niet op alle apparaten, dus hieronder komt de minder mooie oplossing
+    var arr=[""]
+    kat=kat.split("")
+    for (var i=0;i<kat.length;i++) {
+    if (kat[i].match(/[0-9]/)) break
+      arr[0] += kat[i]
+    }
+    arr[1]=kat.slice(i).join("");
+    kat=arr // einde minder mooie oplossing
     if (!kat[1]) kat[1]=1
     kat[1]=Number(kat[1])
     var obj = {}
