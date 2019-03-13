@@ -9,11 +9,9 @@ function solve()  {
     f[1] = f[1].split("+")
     f[0] = f[0].map(splitElement)
     f[1] = f[1].map(splitElement)
-    alert(JSON.stringify(f))
     var e = [];
     e[0] = getElementArray(f[0])
     e[1] = getElementArray(f[1])
-    alert(JSON.stringify(e))
     displayF(f)
 }
 function splitElement(element) {
