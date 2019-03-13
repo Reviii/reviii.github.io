@@ -1,0 +1,77 @@
+<html>
+<body>
+<input id="f" value="CH4+O2>CO2+H2O"><button onclick="solve()">Los op</button><p id="output"></p>
+<script>
+function solve()  {
+    var f = document.getElementById("f").value;
+    f = f.split(" ").join("").split("-").join("").split(">")
+    f[0] = f[0].split("+")
+    f[1] = f[1].split("+")
+    f[0] = f[0].map(splitElement)
+    f[1] = f[1].map(splitElement)
+    alert(JSON.stringify(f))
+    var e = [];
+    e[0] = getElementArray(f[0])
+    e[1] = getElementArray(f[1])
+    alert(JSON.stringify(e))
+    displayF(f)
+}
+function splitElement(element) {
+    var obj = {};
+    var objarr = element.split(/(?=[A-Z])/).map(splitKat)
+    for (var i=0;i<objarr.length;i++) {
+      for (j in objarr[i]) {
+        obj[j] = objarr[i][j]
+      }
+    }
+    return obj
+}
+function splitKat(kat) {
+    kat = kat.split(/(?=[0-9])/)
+    if (!kat[1]) kat[1]=1
+    kat[1]=Number(kat[1])
+    var obj = {}
+    obj[kat[0]] = kat[1]
+    return obj
+}
+function getElementArray(f) {
+var i, j, k
+var e = {}
+for (i=0;i<f.length;i++) {
+for (k in f[i]) {
+if (e[k]) {
+e[k][e[k].length] = i
+} else {
+e[k] = []
+e[k][0] = i
+}
+}
+}
+return e
+}
+function gcd(a, b) {
+    var t = b;
+    while (b != 0) {
+       t = b; 
+       b = a % b; 
+       a = t;
+    } 
+    return a;
+}
+function displayF(f) {
+    document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" -> "+f[1].map(joinElement).join(" + ")
+}
+function joinElement(element) {
+    var str=""
+    for (var i in element) {
+      element[i] = element[i].toString()
+      element[i] = "<sub>"+element[i]+"</sub>"
+      if (element[i] == "<sub>1</sub>") element[i]=""
+      str += i + element[i]
+    }
+    if (element.a=="1" || !element.a) element.a=""
+    return element.a+str
+}
+</script>
+</body>
+</html>
