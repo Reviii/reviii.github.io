@@ -39,9 +39,9 @@ function solve()  {
         if (e[1][i].length<2) {
           if (e[0][i]) {
             for (j=0;j<e[0][i].length;j++) {
-              let a = lcm(f[0][e[0][i][j]][i], lcm(f[1][e[1][i][1]][i], f[1][e[1][i][1]].a))
+              let a = lcm(f[0][e[0][i][j]][i], lcm(f[1][e[1][i][0]][i], f[1][e[1][i][0]].a))
               f[0][e[0][i][j]].a = lcm(a, f[0][e[0][i][j]].a)/f[0][e[0][i][j]][i]
-              f[1][e[1][i][1]].a = lcm(a, f[1][e[1][i][1]].a)/f[1][e[1][i][1]][i]
+              f[1][e[1][i][9]].a = lcm(a, f[1][e[1][i][0]].a)/f[1][e[1][i][0]][i]
             }
           }
         }
