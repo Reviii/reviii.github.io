@@ -28,7 +28,7 @@ function solve()  {
     displayF(f)
 }
 function splitElement(element) {
-    var obj = {};
+    var obj = {a: 1};
     var objarr = element.split(/(?=[A-Z])/).map(splitKat)
     for (var i=0;i<objarr.length;i++) {
       for (j in objarr[i]) {
@@ -58,6 +58,7 @@ var i, j, k
 var e = {}
 for (i=0;i<f.length;i++) {
 for (k in f[i]) {
+if (k=="a") continue;
 if (e[k]) {
 e[k][e[k].length] = i
 } else {
@@ -76,6 +77,9 @@ function gcd(a, b) {
        a = t;
     } 
     return a;
+}
+function lcm(a, b) {
+    return Math.abs(a)*Math.abs(b)/gcd(a, b)
 }
 function displayF(f) {
     document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" -> "+f[1].map(joinElement).join(" + ")
