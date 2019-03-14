@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vergelijking v0.0.3</title>
+<title>Vergelijking v0.1.1</title>
 </head>
 <body>
 <input id="f" value="CH4+O2>CO2+H2O"><button onclick="solve()">Los op</button><p id="output"></p>
@@ -18,10 +18,16 @@ function solve()  {
     e[1] = getElementArray(f[1])
     var fold, foldnew;
     foldnew = JSON.stringify(f)
+    var i = 0;
     while (fold != foldnew) {
     fold = foldnew;
     lcmsolve()
     foldnew = JSON.stringify(f)
+    i++
+    if (i > 20) {
+        alert("Can't solve")
+        fold = foldnew
+    }
     }
     displayF(f)
     function lcmsolve() {
