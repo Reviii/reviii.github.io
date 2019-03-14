@@ -16,10 +16,11 @@ function solve()  {
     var e = [];
     e[0] = getElementArray(f[0])
     e[1] = getElementArray(f[1])
-    var fold;
-    while (fold != f) {
-    fold = f;
+    var fold, foldnew;
+    while (fold != foldnew) {
+    fold = foldnew;
     lcmsolve()
+    foldnew = JSON.stringify(f)
     }
     displayF(f)
     function lcmsolve() {
