@@ -17,6 +17,7 @@ function solve()  {
     e[0] = getElementArray(f[0])
     e[1] = getElementArray(f[1])
     var fold, foldnew;
+    foldnew = JSON.stringify(f)
     while (fold != foldnew) {
     fold = foldnew;
     lcmsolve()
