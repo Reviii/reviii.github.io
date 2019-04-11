@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Primefactors</title>
+</head>
+<body>
+<input size="16" id="number"><button onclick="primefactors()">Primefactors</button>
+<p id="factors"></p>
+<script>
+function primefactors() {
+    var a, a2, i, j, k, n, text;
+    text = "";
+    n = Number(document.getElementById("number").value);
+    a2 = Math.sqrt(n);
+    if (a2<1) {
+        alert("Invalid input, expected input to be positiven");
+    }
+    a = Math.sqrt(a2)+1;
+    var nprimes = [];
+    for (i=2;i<a;i++) {
+        if (!nprimes[i]) {
+            k = a2/i;
+            for (j=k;j>=i;j--) {
+                if (!nprimes[j]) {
+                    nprimes[i*j] = true;
+                }
+            }
+        }
+    }
+    for (i=2;i<=a2;i++) {
+        if (!nprimes[i]) {
+            if (n%i==0) {
+                text += i.toString()+"<br>";
+                n = n/i;
+                i--;
+            }
+        }
+    }
+    if (n!=1) {
+        text += n.toString()+"<br>";
+    }
+    document.getElementById("factors").innerHTML = text;
+}
+</script>
+</body>
+</html>
