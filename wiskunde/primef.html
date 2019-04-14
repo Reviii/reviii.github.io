@@ -10,11 +10,11 @@ function primefactors() {
     var a, a2, i, j, k, n, text;
     text = "";
     n = Number(document.getElementById("number").value);
-    a2 = Math.sqrt(n);
+    a2 = Math.floor(Math.sqrt(n));
     if (a2<1) {
-        alert("Invalid input, expected input to be positiven");
+        alert("Invalid input, expected input to be positive");
     }
-    a = Math.sqrt(a2)+1;
+    a = Math.floor(Math.sqrt(a2))+1;
     var nprimes = [];
     for (i=2;i<a;i++) {
         if (!nprimes[i]) {
