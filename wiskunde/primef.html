@@ -18,7 +18,7 @@ function primefactors() {
     var nprimes = [];
     for (i=2;i<a;i++) {
         if (!nprimes[i]) {
-            k = a2/i;
+            k = (a2-a2%i)/i;
             for (j=k;j>=i;j--) {
                 if (!nprimes[j]) {
                     nprimes[i*j] = true;
