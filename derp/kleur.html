@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Alle kleuren</title>
+</head>
+<body>
+
+<h2>Alle kleuren</h2><button onclick="miauw(1)">miauw</button><button onclick="miauw(4)">4miauw</button><button onclick="miauw(16)">16miauw</button><button onclick="miauw(64)">64miauw</button><button onclick="auto()">start automiauw</button><button onclick="clearInterval(kat)">stop automiauw</button>miauwheid: <input id="miauw" onblur="miauw(0)" size="3"><br><canvas id="myCanvas" width="256" height="256">
+Your browser does not support the HTML5 canvas tag.</canvas><br><p id="dataurl"></p>
+
+<script>
+var kat
+function auto() {
+kat = setInterval(miauw1 ,33)
+}
+function miauw1() {
+miauw(1)
+}
+miauw(0)
+var r = 0
+function miauw(miauws) {
+r = Number(document.getElementById("miauw").value) + miauws
+if (r > 255) {
+r = 0
+}
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var imgData = ctx.createImageData(256, 256);
+var g = 0;
+var b = 0;
+var pixel = 0
+while (g < 256) {
+while (b < 256) {
+    imgData.data[pixel*4+0] = r;
+    imgData.data[pixel*4+1] = g;
+    imgData.data[pixel*4+2] = b;
+    imgData.data[pixel*4+3] = 255
+    pixel++;
+    b++;
+}
+g++
+b = 0
+}
+ctx.putImageData(imgData, 0, 0);
+document.getElementById("miauw").value = r
+document.getElementById("dataurl").innerHTML = "<a href=" + c.toDataURL("image/png") + " target=_blank>data:url</a>"
+}
+</script>
+
+
+</body>  
+</html>
