@@ -18,11 +18,15 @@ function lcm(a, b) {
 }
 function fracadd([an, ad], [bn, bd]) {
     var cd = lcm(ad, bd);
-    return [an*cd/ad+bn*cd/bd, cd];
+    var cn = an*cd/ad+bn*cd/bd;
+    var cg = gcd(cd, cn);
+    return [cn/cg, cd/cg];
 }
 function fracsub([an, ad], [bn, bd]) {
     var cd = lcm(ad, bd);
-    return [an*cd/ad-bn*cd/bd, cd];
+    var cn = an*cd/ad-bn*cd/bd;
+    var cg = gcd(cd, cn);
+    return [cn/cg, cd/cg];
 }
 function oplusfrac([an, ad], [bn, bd]) {
     var t = fracadd([ad, an], [bd, bn]);
