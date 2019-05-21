@@ -16,11 +16,11 @@ function gcd(a, b) {
 function lcm(a, b) {
     return Math.abs(a*b)/gcd(a, b);
 }
-fracadd([an, ad], [bn, bd]) {
+function fracadd([an, ad], [bn, bd]) {
     var cd = lcm(ad, bd);
     return [an*cd/ad+bn*cd/bd, cd];
 }
-fracsub([an, ad], [bn, bd]) {
+function fracsub([an, ad], [bn, bd]) {
     var cd = lcm(ad, bd);
     return [an*cd/ad-bn*cd/bd, cd];
 }
