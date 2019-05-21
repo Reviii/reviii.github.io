@@ -25,8 +25,10 @@ fracsub([an, ad], [bn, bd]) {
     return [an*cd/ad-bn*cd/bd, cd];
 }
 function oplusfrac([an, ad], [bn, bd]) {
-    return fracadd([ad, an], [bd, bn]);
+    var t = fracadd([ad, an], [bd, bn]);
+    return [t[1], t[0]];
 }
 function ominfrac([an, ad], [bn, bd]) {
-    return fracsub([ad, an], [bd, bn]);
+    var t = fracsub([ad, an], [bd, bn]);
+    return [t[1], t[0]];
 }
