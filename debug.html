@@ -10,7 +10,7 @@
 <script>
 document.getElementById("myframe").src = prompt("src?", "index.html")
 var x = document.getElementById("myframe")
-x.contentWindow.loadScript = function(source){var script = document.createElement('script');script.src=source;document.head.appendChild(script);}
+x.contentWindow.eval("loadScript = function(source){var script = document.createElement('script');script.src=source;document.head.appendChild(script);}")
 setInterval(myFunction, 50)
 function myFunction() {
     var y = (x.contentWindow || x.contentDocument);
