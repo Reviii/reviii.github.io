@@ -28,6 +28,18 @@ function fracsub([an, ad], [bn, bd]) {
     var cg = gcd(cd, cn);
     return [cn/cg, cd/cg];
 }
+function fracmul([an, ad], [bn, bd]) {
+    var cd = ad*bd;
+    var cn = an*bn;
+    var cg = gcd(cd, cn);
+    return [cn/cg, cd/cg];
+}
+function fracdiv([an, ad], [bn, bd]) {
+    var cd = ad*bn;
+    var cn = an*bd;
+    var cg = gcd(cd, cn);
+    return [cn/cg, cd/cg];
+}
 function oplusfrac([an, ad], [bn, bd]) {
     var t = fracadd([ad, an], [bd, bn]);
     return [t[1], t[0]];
