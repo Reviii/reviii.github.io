@@ -6,7 +6,7 @@ function omin(a, b) {
 }
 function gcd(a, b) {
     var t = b;
-    while (b != 0) {
+    while (b != 0 && !Number.isNaN(b)) {
        t = b; 
        b = a % b; 
        a = t;
