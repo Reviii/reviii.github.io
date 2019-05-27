@@ -111,20 +111,11 @@ function lcm(a, b) {
     return Math.abs(a)*Math.abs(b)/gcd(a, b)
 }
 function gcdarr(arr) {
-    var oldarr = arr;
-    var i;
-    while (oldarr.length!=1) {
-      let newarr = [];
-      for (i=0;i<oldarr.length;i+=2) {
-        if (oldarr[i+1]) {
-          newarr[i/2] = gcd(oldarr[i], oldarr[i+1]);
-        } else {
-          newarr[i/2] = oldarr[i];
-        }
-      }
-      oldarr = newarr;
+    var c = arr[0];
+    for (var i=1;i<arr.length;i++) {
+      c = gcd(arr[i], c);
     }
-    return oldarr[0];
+    return c;
 }
 function displayF(f) {
     document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" &rarr; "+f[1].map(joinElement).join(" + ")
