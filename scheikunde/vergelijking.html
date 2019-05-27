@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vergelijking v0.1.4</title>
+<title>Vergelijking v0.1.5</title>
 </head>
 <body>
 <input id="f" value="NH3+O2>N2+H2O" style="width:50%"><button onclick="solve()">Los op</button><p id="output"></p>
@@ -109,6 +109,22 @@ function gcd(a, b) {
 }
 function lcm(a, b) {
     return Math.abs(a)*Math.abs(b)/gcd(a, b)
+}
+function gcdarr(arr) {
+    var oldarr = arr;
+    var i;
+    while (oldarr.length!=1) {
+        let newarr = [];
+        for (i=0;i<oldarr.length;i+=2) {
+            if (oldarr[i+1]) {
+                newarr[i/2] = gcd(oldarr[i], oldarr[i+1]);
+            } else {
+                newarr[i/2] = oldarr[i];
+            }
+        }
+        oldarr = newarr;
+    }
+    return oldarr[0];
 }
 function displayF(f) {
     document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" &rarr; "+f[1].map(joinElement).join(" + ")
