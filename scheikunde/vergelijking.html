@@ -114,15 +114,15 @@ function gcdarr(arr) {
     var oldarr = arr;
     var i;
     while (oldarr.length!=1) {
-        let newarr = [];
-        for (i=0;i<oldarr.length;i+=2) {
-            if (oldarr[i+1]) {
-                newarr[i/2] = gcd(oldarr[i], oldarr[i+1]);
-            } else {
-                newarr[i/2] = oldarr[i];
-            }
+      let newarr = [];
+      for (i=0;i<oldarr.length;i+=2) {
+        if (oldarr[i+1]) {
+          newarr[i/2] = gcd(oldarr[i], oldarr[i+1]);
+        } else {
+          newarr[i/2] = oldarr[i];
         }
-        oldarr = newarr;
+      }
+      oldarr = newarr;
     }
     return oldarr[0];
 }
