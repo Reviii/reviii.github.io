@@ -110,10 +110,10 @@ function gcd(a, b) {
 function lcm(a, b) {
     return Math.abs(a)*Math.abs(b)/gcd(a, b)
 }
-function gcdarr(arr) {
-    var c = arr[0];
+function gcdarrs(arr, arr2) {
+    var c = arr[0]*arr2[0];
     for (var i=1;i<arr.length;i++) {
-      c = gcd(arr[i], c);
+      c = gcd(arr[i]*arr2[i], c);
     }
     return c;
 }
