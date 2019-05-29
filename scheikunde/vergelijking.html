@@ -57,7 +57,15 @@ function solve()  {
     }
 }
 function splitElement(element) {
-    var obj = {a: 1};
+    var a = ""
+    while (element.charAt().match(/[0-9]/)) {
+      a += element.charAt();
+      element = element.substring(1);
+    }
+    if (a!=="") { 
+      a ="1"
+    }
+    var obj = {a: Number(a)}
     var objarr = element.split(/(?=[A-Z])/).map(splitKat)
     for (var i=0;i<objarr.length;i++) {
       for (j in objarr[i]) {
