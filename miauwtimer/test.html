@@ -29,14 +29,26 @@ img {
     width: 100%;
     height: 100%;
 }
+button {
+    color: #000;
+    background-color: #0f0;
+    width: 25%;
+    height: 50%;
+    margin: auto;
+}
+input {
+    width: 75%;
+    height: 50%;
+    margin: auto;
+}
 </style>
 </head>
 <body>
-<!-- Versie 19 jun 2019.bel.autobeldelay (experimentele versie) beldelay: 19 jun 2019 -->
+<!-- Versie 19 jun 2019.bel.autobeldelay en wat css (experimentele versie) beldelay: 19 jun 2019 -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
-<input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
-<p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p>
+<input id="input" style="position:relative"><button onClick="start()" id="knop">aftellen!</button>
+<p id="demo" style="visibility:hidden;font-size: 250px;text-align:center;position:absolute;top:50%"></p>
 
 <script>
 var autostart = false
