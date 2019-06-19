@@ -131,6 +131,136 @@ d.setHours(x[0]);
 if (x.length > 1) {
 d.setMinutes(x[1]);
 } else {
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#0000ff">
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#00ffff">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<title>Miauwtimer test</title>
+<style>
+div {
+    border-style: none;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+}
+img {
+    border-style: none;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+}
+</style>
+</head>
+<body>
+<!-- Versie 13 dec 2018.thema.onstart+anticrash (experimentele versie) beldelay: 26 feb 2019 -->
+<div>
+<img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
+<input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
+<p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p>
+
+<script>
+var autostart = false
+var klok = false
+var klok2 = setInterval(klokje, 50);
+
+var nm = 0
+var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
+var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00", "#0000ff", "#000000"]
+nml = 1
+function thema(nml) {
+nm = nml
+nm = nm%8
+document.body.style.backgroundColor = arrkleur2[nm];
+document.getElementById("demo").style.color = arrkleur1[nm]
+document.getElementsByTagName("DIV")[0].style.display = "none"
+setTimeout(function() {document.getElementsByTagName("DIV")[0].style.display = "block"; }, 1)
+nml = nm+1
+}
+
+function toets(event) {
+var omnum = "74561230".split("")
+var x = String.fromCharCode(event.keyCode)
+if (x == "i") {
+thema(omnum[nm])
+}
+var i
+var kleurkeys = "krgbcmyw".split("")
+for (i=0;i<8;i++) {
+if (kleurkeys[i] == x || i == x) {
+thema(i)
+}
+}
+}
+
+function pijl(event) {
+if (event.keyCode == 37 || event.keyCode == 38) {
+thema(nm+7)
+}
+if (event.keyCode == 39 || event.keyCode == 40) {
+thema(nm+1)
+}
+}
+
+var beldelay = "-13"
+bel()
+function bel() {
+var belsec = "29700 33000 36000 37200 39000 40200 43200 44700 45000 46200 48000 51000 54000 57000 60000".split(" ")
+var beltijd = "8:15: 9:10: 10:00: 10:20: 10:50: 11:10: 12:00: 12:25: 12:30: 12:50: 13:20: 14:10: 15:00: 15:50: 16:40:".split(" ")
+var b = parseInt(beldelay, 10)
+var t1 = new Date();
+var t2 = new Date();
+var t3 = "";
+t2.setHours(0)
+t2.setMinutes(0)
+t2.setSeconds(0)
+var t = t1.getTime() / 1000 - t2.getTime() / 1000;
+var text = beltijd[0]
+var i = 1
+while (i < belsec.length) {
+if (t < Number(belsec[i])+b && t >= Number(belsec[i-1])+b) {
+text = beltijd[i]
+}
+i++
+}
+document.getElementById("input").value = text+beldelay
+}
+
+function start() {
+document.getElementById("input").style.visibility = "hidden"
+document.getElementById("knop").style.visibility  = "hidden"
+document.getElementById("demo").style.visibility = "visible"
+document.getElementById("demo").innerHTML = ""
+document.body.addEventListener("keypress", toets)
+document.body.addEventListener("keydown", pijl)
+klok = true
+functie()
+}
+
+var d
+function functie() {
+d = new Date();
+var x = document.getElementById("input").value
+if (x.toLowerCase() == "heeft revi dit gemaakt?") {
+alert("Ja")
+}
+x = x.split(":");
+d.setHours(x[0]);
+if (x.length > 1) {
+d.setMinutes(x[1]);
+} else {
 d.setMinutes(0);
 }
 if (x.length > 2) {
@@ -168,7 +298,6 @@ function reset() {
 document.getElementById("input").style.visibility = "visible"
 document.getElementById("knop").style.visibility = "visible"
 document.getElementById("demo").style.visibility = "hidden"
-document.getElementsByTagName("DIV")[0].style.display = "none"
 document.body.removeEventListener("keypress", toets)
 document.body.removeEventListener("keydown", pijl)
 klok = false
