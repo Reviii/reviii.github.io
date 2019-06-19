@@ -32,7 +32,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 13 dec 2018.thema.onstart+anticrash (experimentele versie) beldelay: 26 feb 2019 -->
+<!-- Versie 19 jun 2019.bel.autobeldelay (experimentele versie) beldelay: 19 jun 2019 -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
@@ -81,9 +81,11 @@ thema(nm+1)
 }
 }
 
-var beldelay = "-9"
+var beldelay = -13
+var beltime = 1560852000000
 bel()
 function bel() {
+var beldelay = Math.round(((new Date()).getTime()-window.beltime)*-13/9504000000+window.beldelay).toString()
 var belsec = "29700 33000 36000 37200 39000 40200 43200 44700 45000 46200 48000 51000 54000 57000 60000".split(" ")
 var beltijd = "8:15: 9:10: 10:00: 10:20: 10:50: 11:10: 12:00: 12:25: 12:30: 12:50: 13:20: 14:10: 15:00: 15:50: 16:40:".split(" ")
 var b = parseInt(beldelay, 10)
