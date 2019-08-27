@@ -32,7 +32,7 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 19 jun 2018 -->
+<!-- Versie 27 aug 2018 -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
@@ -86,20 +86,15 @@ thema(nm+1)
 var beldelay = "-9"
 bel()
 function bel() {
-var belsec = "29700 33000 36000 37200 39000 40200 43200 44700 45000 46200 48000 51000 54000 57000 60000".split(" ")
-var beltijd = "8:15: 9:10: 10:00: 10:20: 10:50: 11:10: 12:00: 12:25: 12:30: 12:50: 13:20: 14:10: 15:00: 15:50: 16:40:".split(" ")
+var belsec =   [29700,32400,35100,37800, 38700, 41400, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
+var beltijd =  "8:15: 9:00: 9:45: 10:30: 10:45: 11:30: 12:15: 12:45: 13:30: 14:15: 14:20: 15:05: 15:50:".split(" ")
 var b = parseInt(beldelay, 10)
 var t1 = new Date();
-var t2 = new Date();
-var t3 = "";
-t2.setHours(0)
-t2.setMinutes(0)
-t2.setSeconds(0)
-var t = t1.getTime() / 1000 - t2.getTime() / 1000;
+var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
 var text = beltijd[0]
 var i = 1
 while (i < belsec.length) {
-if (t < Number(belsec[i])+b && t >= Number(belsec[i-1])+b) {
+if (t < belsec[i]+b && t >= belsec[i-1]+b) {
 text = beltijd[i]
 }
 i++
