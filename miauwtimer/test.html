@@ -46,7 +46,7 @@ input {
 </style>
 </head>
 <body>
-<!-- Versie 19 jun 2019.bel.autobeldelay en wat css die nu weg is (experimentele versie) beldelay: 19 jun 2019 -->
+<!-- Versie 19 jun 2019.bel.autobeldelay en wat css die nu weg is (experimentele versie) beldelay: 16 sep 2019 -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
@@ -101,8 +101,8 @@ bel()
 function bel() {
 var b = 0 /*Math.round(((new Date()).getTime()-window.beltime)*-13/9504000000+window.beldelay)*/
 var beldelay = b.toString()
-var belsec =   [29700,32400,35100,37800, 38700, 41400, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
-var beltijd =  "8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
+var belsec =   [29700,32400,35100, 36000, 37800, 38700, 41400, 43200, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
+var beltijd =  "8:15 9:00 9:45 10:00 10:30 10:45 11:30 12:15 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
 var t1 = new Date();
 var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
 var text = beltijd[0]
