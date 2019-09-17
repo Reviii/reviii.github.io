@@ -39,11 +39,9 @@ function updateSettings() {
     settings.autofill.other.short.enabled = elem("autofill_other_short").checked;
     settings.autofill.other.short.content = elem("autofill_other_short_content").value;
     localStorage.miauwtimersettings = JSON.stringify(settings);
-    if (settings.autofill.enabled) {
-        elem("autofill_settings").style.display = "block";
-    } else {
-        elem("autofill_settings").style.display = "none";
-    }
+    elem("autofill_settings").style.display = settings.autofill.enabled ? "block" : "none";
+    elem("autofill_other_default_content").style.display = settings.autofill.other.default.enabled ? "inline" : "none";
+    elem("autofill_other_other_content").style.display = settings.autofill.other.other.enabled ? "inline" : "none";
 }
 document.addEventListener("click", updateSettings);
 document.addEventListener("input", updateSettings);
