@@ -3,13 +3,42 @@
 <title>Instellingen voor miauwtimer</title>
 </head>
 <body>
-<label><input type="checkbox">autostart</label><br>
-<label><input type="checkbox" checked>autofill</label><br>
+<label><input type="checkbox" id="autostart">autostart</label><br>
+<label><input type="checkbox" id="autofill">autofill</label><br>
 <div style="position: relative;left: 2em;">
-    <label><input type="checkbox" checked>bel van onderbouw</label><br>
-    <label><input type="checkbox" checked>bel van bovenbouw</label><br>
-    <label><input type="checkbox">andere tijden:<input></label><br>
-    <label><input type="checkbox">andere tijden bij verkort rooster:<input></label>
+    <label><input type="checkbox" id="autofill_o">bel van onderbouw</label><br>
+    <label><input type="checkbox" id="autofill_b">bel van bovenbouw</label><br>
+    <label><input type="checkbox" id="autofill_other_default">andere tijden:<input id="autofill_other_default_content></label><br>
+    <label><input type="checkbox" id="autofill_other_short">andere tijden bij verkort rooster:<input id="autofill_other_short_content"></label>
 </div><br>
+<script>
+var settings = localStorage.miauwtimer.settings;
+if (!settings) {
+    settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+}
+function elem(id) { return document.getElementById(id); }
+
+elem("autostart").checked = settings.autostart;
+elem("autofill").checked = settings.autofill.enabled;
+elem("autofill_o").checked = settings.autofill.o;
+elem("autofill_b").checked = settings.autofill.b;
+elem("autofill_other_default").checked = settings.autofill.other.default.enabled;
+elem("autofill_other_default_content").value = settings.autofill.other.content;
+elem("autofill_other_short").checked = settings.autofill.other.short.enabled;
+elem("autofill_other_short_content").value = settings.autofill.other.short.content;
+ 
+function updateSettings() {
+    settings.autostart = elem("autostart").checked;
+    settings.autofill.enabled = elem("autofill").checked;
+    settings.autofill.o = elem("autofill_o").checked;
+    settings.autofill.b = elem("autofill_b").checked;
+    settings.autofill.other.default.enabled = elem("autofill_other_default").checked;
+    settings.autofill.other.default.content = elem("autofill_other_default.content").value;
+    settings.autofill.other.short.enabled = elem("autofill_other_short").checked;
+    settings.autofill.other.short.content = elem("autofill_other_short_content").value;
+    localStorage.miauwtimer.settings = settings;
+}
+document.addEventListener("click", updateSettings);
+</script>
 </body>
 </html>
