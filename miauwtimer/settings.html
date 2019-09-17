@@ -35,7 +35,7 @@ function updateSettings() {
     settings.autofill.o = elem("autofill_o").checked;
     settings.autofill.b = elem("autofill_b").checked;
     settings.autofill.other.default.enabled = elem("autofill_other_default").checked;
-    settings.autofill.other.default.content = elem("autofill_other_default.content").value;
+    settings.autofill.other.default.content = elem("autofill_other_default_content").value;
     settings.autofill.other.short.enabled = elem("autofill_other_short").checked;
     settings.autofill.other.short.content = elem("autofill_other_short_content").value;
     localStorage.miauwtimersettings = JSON.stringify(settings);
