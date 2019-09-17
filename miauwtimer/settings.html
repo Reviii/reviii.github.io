@@ -12,6 +12,9 @@
     <label><input type="checkbox" id="autofill_other_short">andere tijden bij verkort rooster:<input id="autofill_other_short_content"></label>
 </div><br>
 <script>
+if (!localStorage.miauwtimer) {
+    localStorage.miauwtimer = {};
+}
 var settings = localStorage.miauwtimer.settings;
 if (!settings) {
     settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
