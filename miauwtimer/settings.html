@@ -41,7 +41,7 @@ function updateSettings() {
     localStorage.miauwtimersettings = JSON.stringify(settings);
     elem("autofill_settings").style.display = settings.autofill.enabled ? "block" : "none";
     elem("autofill_other_default_content").style.display = settings.autofill.other.default.enabled ? "inline" : "none";
-    elem("autofill_other_other_content").style.display = settings.autofill.other.other.enabled ? "inline" : "none";
+    elem("autofill_other_short_content").style.display = settings.autofill.other.short.enabled ? "inline" : "none";
 }
 document.addEventListener("click", updateSettings);
 document.addEventListener("input", updateSettings);
