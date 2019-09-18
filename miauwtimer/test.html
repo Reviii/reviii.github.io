@@ -109,7 +109,7 @@ var beldelay = -5
 var beltime = 1567504800000
 bel()
 function bel() {
-if (settings.autofill) {
+if (settings.autofill.enabled) {
 var b = 0 /*Math.round(((new Date()).getTime()-window.beltime)*-13/9504000000+window.beldelay)*/
 var beldelay = b.toString()
 var belsec =   [29700,32400,35100, 36000, 37800, 38700, 41400, 43200, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
