@@ -60,7 +60,7 @@ input {
 
 <script>
 if (localStorage.miauwtimersettings) {
-    var settings = JSON.stringify(localStorage.miauwtimersettings);
+    var settings = JSON.parse(localStorage.miauwtimersettings);
 } else {
     var settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
 }
