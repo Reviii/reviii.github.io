@@ -29,31 +29,41 @@ img {
     width: 100%;
     height: 100%;
 }
-/*
 button {
     color: #000;
     background-color: #0f0;
     width: 25%;
     height: 50%;
-    margin: auto;
+    margin: 0;
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    border: none;
 }
 input {
     width: 75%;
     height: 50%;
-    margin: auto;
+    margin: 0;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    border: none;
 }
-*/
 </style>
 </head>
 <body>
-<!-- Versie 19 jun 2019.bel.autobeldelay en wat css die nu weg is (experimentele versie) beldelay: 16 sep 2019 -->
+<!-- Versie 18 sep 2019.css (experimentele versie) -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
-<input id="input" style="position:relative"><button onClick="start()" id="knop" style="position:relative">aftellen!</button>
+<input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center;"></p>
 
 <script>
-var autostart = false
+if (localStorage.miauwtimersettings) {
+    var settings = JSON.stringify(localStorage.miauwtimersettings);
+} else {
+    var settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+}
 var klok = false
 var klok2 = setInterval(klokje, 50);
 
@@ -99,6 +109,7 @@ var beldelay = -5
 var beltime = 1567504800000
 bel()
 function bel() {
+if (settings.autofill) {
 var b = 0 /*Math.round(((new Date()).getTime()-window.beltime)*-13/9504000000+window.beldelay)*/
 var beldelay = b.toString()
 var belsec =   [29700,32400,35100, 36000, 37800, 38700, 41400, 43200, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
@@ -114,6 +125,7 @@ text = beltijd[i]
 i++
 }
 document.getElementById("input").value = text
+}
 }
 
 function start() {
@@ -180,7 +192,7 @@ document.body.removeEventListener("keypress", toets)
 document.body.removeEventListener("keydown", pijl)
 klok = false
 bel()
-if (autostart) {
+if (settings.autostart) {
 start()
 }
 }
