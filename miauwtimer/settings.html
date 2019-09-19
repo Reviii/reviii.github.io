@@ -44,7 +44,7 @@ function updateSettings() {
     elem("autofill_other_default_content").style.display = settings.autofill.other.default.enabled ? "inline" : "none";
     elem("autofill_other_short_content").style.display = settings.autofill.other.short.enabled ? "inline" : "none";
 }
-document.addEventListener("click", updateSettings);
+//document.addEventListener("click", updateSettings); // not needed because input event already fires when checkboxes are checked
 document.addEventListener("input", updateSettings);
 </script>
 </body>
