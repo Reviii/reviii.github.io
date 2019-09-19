@@ -32,13 +32,17 @@ img {
 </style>
 </head>
 <body>
-<!-- Versie 16 sep 2018 -->
+<!-- Versie 19 sep 2019 -->
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 
 <script>
-var autostart = false
+if (localStorage.miauwtimersettings) {
+    var settings = JSON.parse(localStorage.miauwtimersettings);
+} else {
+    var settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+}
 var klok = false
 var klok2 = setInterval(klokje, 50);
 
@@ -83,12 +87,11 @@ thema(nm+1)
 }
 }
 
-var beldelay = ""
 bel()
 function bel() {
+if (settings.autofill) {
 var belsec =   [29700,32400,35100,37800, 38700, 41400, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
 var beltijd =  "8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
-var b = 0//parseInt(beldelay, 10)
 var t1 = new Date();
 var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
 var text = beltijd[0]
@@ -100,6 +103,7 @@ text = beltijd[i]
 i++
 }
 document.getElementById("input").value = text
+}
 }
 
 function start() {
@@ -167,9 +171,13 @@ document.body.removeEventListener("keypress", toets)
 document.body.removeEventListener("keydown", pijl)
 klok = false
 bel()
-if (autostart) {
+if (settings.autostart) {
 start()
 }
+}
+
+if (settings.autostart) {
+start()
 }
 </script>
 
