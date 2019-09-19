@@ -74,6 +74,8 @@ if (localStorage.miauwtimersettings) {
 }
 var klok = false
 var klok2 = setInterval(klokje, 50);
+document.body.addEventListener("keypress", toets)
+document.body.addEventListener("keydown", pijl)
 
 var nm = 0
 var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
@@ -113,15 +115,11 @@ thema(nm+1)
 }
 }
 
-var beldelay = -5
-var beltime = 1567504800000
 bel()
 function bel() {
 if (settings.autofill.enabled) {
-var b = 0 /*Math.round(((new Date()).getTime()-window.beltime)*-13/9504000000+window.beldelay)*/
-var beldelay = b.toString()
-var belsec =   [29700,32400,35100, 36000, 37800, 38700, 41400, 43200, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
-var beltijd =  "8:15 9:00 9:45 10:00 10:30 10:45 11:30 12:15 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
+var belsec =   [29700,32400,35100,36000,37800,38700,41400,43200,44100,45900,48600,51300,51600,54300,57000]
+var beltijd =    "8:15 9:00 9:45 10:00 10:30 10:45 11:30 12:15 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
 var t1 = new Date();
 var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
 var text = beltijd[0]
@@ -141,8 +139,6 @@ document.getElementById("input").style.visibility = "hidden"
 document.getElementById("knop").style.visibility  = "hidden"
 document.getElementById("demo").style.visibility = "visible"
 document.getElementById("demo").innerHTML = ""
-document.body.addEventListener("keypress", toets)
-document.body.addEventListener("keydown", pijl)
 klok = true
 functie()
 }
@@ -196,8 +192,6 @@ function reset() {
 document.getElementById("input").style.visibility = "visible"
 document.getElementById("knop").style.visibility = "visible"
 document.getElementById("demo").style.visibility = "hidden"
-document.body.removeEventListener("keypress", toets)
-document.body.removeEventListener("keydown", pijl)
 klok = false
 bel()
 if (settings.autostart) {
