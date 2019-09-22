@@ -12,7 +12,6 @@
     <label><input type="checkbox" id="autofill_other_default">andere tijden:</label><input id="autofill_other_default_content"><br>
     <label><input type="checkbox" id="autofill_other_short">andere tijden bij verkort rooster:</label><input id="autofill_other_short_content">
 </div><br>
-<button onclick="delete localStorage.miauwtimersettings;location.reload()">reset</button>
 <script>
 try {
     if (!localStorage.miauwtimersettings) {
@@ -30,9 +29,10 @@ try {
     elem("autofill_other_default_content").value = settings.autofill.other.default.content;
     elem("autofill_other_short").checked = settings.autofill.other.short.enabled;
     elem("autofill_other_short_content").value = settings.autofill.other.short.content;
-    updateSettings()
+    updateSettings();
 } catch(err) {
-    alert(err.message+"\n\nPress the reset button if this issue persists")
+    delete localStorage.miauwtimersettings;
+    location.reload();
 }
 function updateSettings() {
     settings.autostart = elem("autostart").checked;
