@@ -32,7 +32,7 @@ try {
     updateSettings();
 } catch(err) {
     delete localStorage.miauwtimersettings;
-    alert("Settings have been reset because of "+err.message);
+    alert("Your settings have been reset because of a critical error")
     location.reload();
 }
 function updateSettings() {
