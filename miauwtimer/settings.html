@@ -12,32 +12,28 @@
     <label><input type="checkbox" id="autofill_other_default">andere tijden:</label><input id="autofill_other_default_content"><br>
     <label><input type="checkbox" id="autofill_other_short">andere tijden bij verkort rooster:</label><input id="autofill_other_short_content">
 </div><br>
+<button onclick="delete localStorage.miauwtimersettings;location.reload()">reset</button>
 <script>
-if (!localStorage.miauwtimersettings) {
-    settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
-} else {
-    try {
+try {
+    if (!localStorage.miauwtimersettings) {
+        settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+    } else {
         var settings = JSON.parse(localStorage.miauwtimersettings);
-    } catch(err) {
-        alert(err.message+"\n\nlocalStorage.miauwtimersettings:\n"+localStorage.miauwtimersettings);
-        if (confirm("Delete localStorage.miauwtimersettings?")) {
-            delete localStorage.miauwtimersettings;
-        }
-        location.reload();
     }
-}
-function elem(id) { return document.getElementById(id); }
+    function elem(id) { return document.getElementById(id); }
 
-elem("autostart").checked = settings.autostart;
-elem("autofill").checked = settings.autofill.enabled;
-elem("autofill_o").checked = settings.autofill.o;
-elem("autofill_b").checked = settings.autofill.b;
-elem("autofill_other_default").checked = settings.autofill.other.default.enabled;
-elem("autofill_other_default_content").value = settings.autofill.other.default.content;
-elem("autofill_other_short").checked = settings.autofill.other.short.enabled;
-elem("autofill_other_short_content").value = settings.autofill.other.short.content;
-updateSettings()
- 
+    elem("autostart").checked = settings.autostart;
+    elem("autofill").checked = settings.autofill.enabled;
+    elem("autofill_o").checked = settings.autofill.o;
+    elem("autofill_b").checked = settings.autofill.b;
+    elem("autofill_other_default").checked = settings.autofill.other.default.enabled;
+    elem("autofill_other_default_content").value = settings.autofill.other.default.content;
+    elem("autofill_other_short").checked = settings.autofill.other.short.enabled;
+    elem("autofill_other_short_content").value = settings.autofill.other.short.content;
+    updateSettings()
+} catch(err) {
+    alert(err.message+"\n\nPress the reset button if this issue persists")
+}
 function updateSettings() {
     settings.autostart = elem("autostart").checked;
     settings.autofill.enabled = elem("autofill").checked;
