@@ -19,7 +19,7 @@ if (!localStorage.miauwtimersettings) {
     try {
         var settings = JSON.parse(localStorage.miauwtimersettings);
     } catch(err) {
-        alert("Error while parsing settings.\nError:"+JSON.stringify(err)+"\nlocalStorage.miauwtimersettings:\n"+localStorage.miauwtimersettings);
+        alert("Error:\n"+err.message+"\nlocalStorage.miauwtimersettings:\n"+localStorage.miauwtimersettings);
         if (confirm("Delete localStorage.miauwtimersettings?")) {
             delete localStorage.miauwtimersettings;
         }
