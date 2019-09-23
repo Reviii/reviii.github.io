@@ -60,7 +60,7 @@ input {
 </style>
 </head>
 <body>
-<!-- Versie 19 sep 2019.css (experimentele versie) -->
+<!-- Versie 23 sep 2019.autofill (experimentele versie) -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
@@ -127,7 +127,7 @@ function bel() {
         var belsec = beltijd.map(parseTijd)
         var t1 = new Date();
         var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
-        var text = beltijd[0]
+        var text = beltijd.length>0 ? beltijd[0] : ""
         var i = 1
         while (i < belsec.length) {
              if (t < belsec[i] && t >= belsec[i-1]) {
