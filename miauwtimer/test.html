@@ -119,9 +119,9 @@ bel()
 function bel() {
     if (settings.autofill.enabled) {
         var beltijd = []
-        if (settings.autofill.o) beltijd.concat("8:15 9:00 9:45 10:00 10:45 11:30 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
-        if (settings.autofill.b) beltijd.concat("8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
-        if (settings.autofill.other.default.enabled) beltijd.concat(settings.autofill.other.default.content.split(" "))
+        if (settings.autofill.o) beltijd = beltijd.concat("8:15 9:00 9:45 10:00 10:45 11:30 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
+        if (settings.autofill.b) beltijd = beltijd.concat("8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
+        if (settings.autofill.other.default.enabled) beltijd = beltijd.concat(settings.autofill.other.default.content.split(" "))
         beltijd =  Array.from(new Set(beltijd))
         beltijd=beltijd.sort((a, b) => parseTijd(a)-parseTijd(b))
         var belsec = beltijd.map(parseTijd)
