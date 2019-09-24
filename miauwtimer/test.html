@@ -168,10 +168,10 @@ d.setSeconds(0);
 d.setMilliseconds(0);
 d.setHours(x[0]);
 if (x.length > 1) {
-d.setMinutes(x[1]+d.getMinutes());
+d.setMinutes(x[1]/*+d.getMinutes()*/);
 }
 if (x.length > 2) {
-d.setSeconds(x[2]+d.getSeconds());
+d.setSeconds(x[2]/*+d.getSeconds()*/);
 }
 var e = new Date();
 var f = d.getTime() /1000 - e.getTime() / 1000;
