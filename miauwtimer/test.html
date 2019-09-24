@@ -60,7 +60,7 @@ input {
 </style>
 </head>
 <body>
-<!-- Versie 23 sep 2019.autofill (experimentele versie) -->
+<!-- Versie 24 sep 2019.timeparse (experimentele versie) -->
 <div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
@@ -162,18 +162,17 @@ if (x.toLowerCase() == "heeft revi dit gemaakt?") {
 alert("Ja")
 }
 x = x.split(":");
-d.setHours(x[0]);
-if (x.length > 1) {
-d.setMinutes(x[1]);
-} else {
+d.setHours(0);
 d.setMinutes(0);
+d.setSeconds(0);
+d.setMilliseconds(0);
+d.setHours(x[0]+d.getHours());
+if (x.length > 1) {
+d.setMinutes(x[1]+d.getMinutes());
 }
 if (x.length > 2) {
-d.setSeconds(x[2]);
-} else {
-d.setSeconds(0);
+d.setSeconds(x[2]+d.getSeconds());
 }
-d.setMilliseconds(0)
 var e = new Date();
 var f = d.getTime() /1000 - e.getTime() / 1000;
 if (f < 0) {
