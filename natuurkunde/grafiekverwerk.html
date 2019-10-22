@@ -16,13 +16,13 @@
 </div>
 <div id="step2" style="display: none">
     <button onclick="document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block'">Terug</button><br><br>
-    Grootheid verticale as:<input value="v" size="2" oninput="unitChange('Y', this.value)"> Grootheid horizontale as:<input value="t" size="2" oninput="unitChange('X', this.value)"><br>
+    Grootheid verticale as:<input value="v" size="2" oninput="unitChange('Y', this.value)" id="unitY"> Grootheid horizontale as:<input value="t" size="2" oninput="unitChange('X', this.value)" id="unitX"><br>
     <span class="unitX">t</span>Min:<input id="xMin"> <span class="unitX">t</span>Max:<input id="xMax"><br>
     <span class="unitY">v</span>Min:<input id="yMin"> <span class="unitY">v</span>Max:<input id="yMax"><br>
-    Vermenigvuldig met: <span class="unitX">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
-    Resulterende grootheid:<input value="a" size="2" id="resUnit"><button>Bereken</button><br>
-    <a>Origineel (csv met puntkomma's als scheidingstekens)</a><br>
-    <a>Verwerkt (csv met puntkomma's als scheidingstekens)</a>
+    Vermenigvuldig met: <span class="unitX">t</span><sup><select disabled id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
+    Resulterende grootheid:<input value="a" size="2" id="resUnit"> Vloeiendheid:<input id="smoothness" size="3"><button  onclick="calculate()">Bereken</button><br>
+    <a id="out1" download="origineel.csv">Origineel (csv met puntkomma's als scheidingstekens)</a><br>
+    <a id="out2" download="verwerkt.csv">Verwerkt (csv met puntkomma's als scheidingstekens)</a>
 </div>
 <script>
 var points = [];
@@ -41,6 +41,7 @@ function process() {
     var c = document.createElement("canvas");
     c.width = img.naturalWidth;
     c.height = img.naturalHeight;
+    window.h = c.height;
     var ctx = c.getContext("2d");
     ctx.drawImage(img, 0, 0);
     var imgData = ctx.getImageData(0, 0, c.width, c.height);
@@ -79,6 +80,45 @@ function unitChange(unit, value) { // er staat unit, maar het gaat om de groothe
     for (var i=0;i<u.length;i++) {
         u[i].innerText = value;
     }
+}
+function avg(arr) {
+    var sum=0;
+    for (var i=0;i<arr.length;i++) {
+        sum += arr[i];
+    }
+    return sum/arr.length;
+}
+function calculate() {
+    var scale = (function() {
+        var h = window.h-1; // off by one error?
+        var yMin = parseInt(document.getElementById("yMin").value);
+        var yRange = parseInt(document.getElementById("yMax").value)-yMin;
+        return a=>-a/h*yRange+yMin+yRange; // -a vanwege omkeren y-as
+    })();
+    var graph = points.map(avg).map(scale);
+    var originalY = graph.map(a=>a.toString()).map(a=>a==="NaN"?"":a).map(a=>a.split(".").join(","));
+    var originalcsv = document.getElementById("unitX").value+";"+document.getElementById("unitY").value;
+    var processedcsv = document.getElementById("unitX").value+";"+document.getElementById("resUnit").value;
+    var xMin = parseInt(document.getElementById("xMin").value);
+    var xInc = (parseInt(document.getElementById("xMax").value)-xMin)/(graph.length-1);
+    for (var i=0;i<graph.length;i++) {
+        originalcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+originalY[i];
+    }
+    var processedY = graph.map((function() { 
+        var smooth = parseInt(document.getElementById("smoothness").value);
+        var high = Math.ceil(smooth/2);
+        var low = smooth-high;
+        var smoothfactor = smooth*xInc;
+        return function(a, i, arr) {
+            var x = ((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
+            return x==="NaN"?"":x;
+        };
+    })())
+    for (var i=0;i<graph.length;i++) {
+        processedcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+processedY[i];
+    }
+    document.getElementById("out1").href = URL.createObjectURL(new Blob([originalcsv], {type: "text/csv"}));
+    document.getElementById("out2").href = URL.createObjectURL(new Blob([processedcsv], {type: "text/csv"}));
 }
 </script>
 </body>
