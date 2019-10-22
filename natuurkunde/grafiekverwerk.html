@@ -10,14 +10,16 @@
 </head>
 <body>
 <div id="step1">
-    <input type="file" id="file">Voorwaarde:<input id="condition" value="(g+b)/r>10"><button onclick="process()">Verwerk!</button><br>
+    <input type="file" id="file">Voorwaarde:<input id="condition" value="(g+b)/r>2.5"><button onclick="process()">Verwerk!</button><br>
     <img class="thumb" id="original"><img class="thumb" id="processed"><br>
     <button onclick="document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block'">Volgende stap</button>
 </div>
 <div id="step2" style="display: none">
     <button onclick="document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block'">Terug</button><br><br>
-    Hoogte:<input> Breedte:<input> Eenheid op horizontale as:<input value="t"><br>
-    Vermenigvuldig met: <span id="unit">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1">-1</option><option value="-2">-2</option></select></sup><button>Bereken</button><br>
+    Eenheid verticale as:<input value="v" size="2"> Eenheid horizontale as:<input value="t" size="2">
+    <span class="unitX">t</spa>Min:<input id="xMin"> <span class="unitX">t</span>Max:<input id="xMax"><br>
+    <span class="unitY">v</spa>Min:<input id="yMin"> <span class="unitY">v</span>Max:<input id="yMax"><br>
+    Vermenigvuldig met: <span class="unitX">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1">-1</option><option value="-2">-2</option></select></sup><button>Bereken</button><br>
     <a>Origineel (csv met puntkomma's als scheidingstekens)</a><br>
     <a>Verwerkt (csv met puntkomma's als scheidingstekens)</a>
 </div>
