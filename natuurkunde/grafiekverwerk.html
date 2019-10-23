@@ -19,7 +19,7 @@
     Grootheid verticale as:<input value="v" size="2" oninput="unitChange('Y', this.value)" id="unitY"> Grootheid horizontale as:<input value="t" size="2" oninput="unitChange('X', this.value)" id="unitX"><br>
     <span class="unitX">t</span>Min:<input id="xMin"> <span class="unitX">t</span>Max:<input id="xMax"><br>
     <span class="unitY">v</span>Min:<input id="yMin"> <span class="unitY">v</span>Max:<input id="yMax"><br>
-    Vermenigvuldig met: <span class="unitX">t</span><sup><select disabled id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
+    Vermenigvuldig met: <span class="unitX">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
     Resulterende grootheid:<input value="a" size="2" id="resUnit"> Vloeiendheid:<input id="smoothness" size="3"><button  onclick="calculate()">Bereken</button><br>
     <a id="out1" download="origineel.csv">Origineel (csv met puntkomma's als scheidingstekens)</a><br>
     <a id="out2" download="verwerkt.csv">Verwerkt (csv met puntkomma's als scheidingstekens)</a>
@@ -104,16 +104,27 @@ function calculate() {
     for (var i=0;i<graph.length;i++) {
         originalcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+originalY[i];
     }
-    var processedY = graph.map((function() { 
-        var smooth = parseInt(document.getElementById("smoothness").value);
-        var high = Math.ceil(smooth/2);
-        var low = smooth-high;
-        var smoothfactor = smooth*xInc;
-        return function(a, i, arr) {
-            var x = ((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
-            return x==="NaN"?"":x;
-        };
-    })())
+    var p = Math.trunc(parseInt(document.getElementById("power").value));
+    var processedY = graph;
+    for (;p<0;p++) {
+        processedY = processedY.map((function() { 
+            var smooth = parseInt(document.getElementById("smoothness").value);
+            var high = Math.ceil(smooth/2);
+            var low = smooth-high;
+            var smoothfactor = smooth*xInc;
+            return function(a, i, arr) {
+                var x = ((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
+                return x==="NaN"?"":x;
+            };
+        })());
+    }
+    for (;p>0;p--) {
+        var sum = 0;
+        for (var i=0;i<processedY.length;i++) {
+            sum += processedY[i]*xInc;
+            processedY[i] = sum;
+        }
+    }
     for (var i=0;i<graph.length;i++) {
         processedcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+processedY[i];
     }
