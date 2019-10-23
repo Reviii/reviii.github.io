@@ -121,7 +121,7 @@ function calculate() {
             if (!Number.isNaN(processedY)) {
                 sum += processedY[i]*xInc;
             } else {
-                sum += sum/i;
+                //sum += sum/i;
                 // better interpolation?
             }
             processedY[i] = sum;
