@@ -118,7 +118,7 @@ function calculate() {
     for (;p>0;p--) {
         var sum = 0;
         for (var i=0;i<processedY.length;i++) {
-            if (!Number.isNaN(processedY)) {
+            if (!Number.isNaN(processedY[i])) {
                 sum += processedY[i]*xInc;
             } else {
                 //sum += sum/i;
