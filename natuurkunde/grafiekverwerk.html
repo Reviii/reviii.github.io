@@ -112,7 +112,7 @@ function calculate() {
             var high = Math.ceil(smooth/2);
             var low = smooth-high;
             var smoothfactor = smooth*xInc;
-            return (a, i, arr)=>((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
+            return (a, i, arr)=>((arr[i+high]-arr[i-low])/smoothfactor);
         })());
     }
     for (;p>0;p--) {
