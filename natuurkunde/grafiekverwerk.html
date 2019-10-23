@@ -112,19 +112,22 @@ function calculate() {
             var high = Math.ceil(smooth/2);
             var low = smooth-high;
             var smoothfactor = smooth*xInc;
-            return function(a, i, arr) {
-                var x = ((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
-                return x==="NaN"?"":x;
-            };
+            return (a, i, arr)=>((arr[i+high]-arr[i-low])/smoothfactor).toString().split(".").join(",");
         })());
     }
     for (;p>0;p--) {
         var sum = 0;
         for (var i=0;i<processedY.length;i++) {
-            sum += processedY[i]*xInc;
+            if (!Number.isNaN(processedY)) {
+                sum += processedY[i]*xInc;
+            } else {
+                sum += sum/i;
+                // better interpolation?
+            }
             processedY[i] = sum;
         }
     }
+    processedY = processedY.map(a=>a.toString()).map(a=>a==="NaN"?"":a).map(a=>a.split(".").join(","));
     for (var i=0;i<graph.length;i++) {
         processedcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+processedY[i];
     }
