@@ -19,7 +19,7 @@
     Grootheid verticale as:<input value="v" size="2" oninput="unitChange('Y', this.value)" id="unitY"> Grootheid horizontale as:<input value="t" size="2" oninput="unitChange('X', this.value)" id="unitX"><br>
     <span class="unitX">t</span>Min:<input id="xMin"> <span class="unitX">t</span>Max:<input id="xMax"><br>
     <span class="unitY">v</span>Min:<input id="yMin"> <span class="unitY">v</span>Max:<input id="yMax"><br>
-    Vermenigvuldig met: <span class="unitX">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
+    'Vermenigvuldig' met: <span class="unitX">t</span><sup><select id="power"><option value="2">2</option><option value="1">1</option><option value="0">0</option><option value="-1" selected>-1</option><option value="-2">-2</option></select></sup>
     Resulterende grootheid:<input value="a" size="2" id="resUnit"> Vloeiendheid:<input id="smoothness" size="3"><button  onclick="calculate()">Bereken</button><br>
     <a id="out1" download="origineel.csv">Origineel (csv met puntkomma's als scheidingstekens)</a><br>
     <a id="out2" download="verwerkt.csv">Verwerkt (csv met puntkomma's als scheidingstekens)</a>
@@ -123,6 +123,7 @@ function calculate() {
             } else {
                 //sum += sum/i;
                 // better interpolation?
+                // current (inter/extra)polation = 0 for unknown values
             }
             processedY[i] = sum;
         }
