@@ -28,7 +28,7 @@ function primefactors() {
     }
     for (j=0;j<narr.length;j++) {
         n = narr[j];
-        if (n<0) continue;
+        if (n<=0) continue;
         text+="primefactors of "+n.toString()+":<br>"
         for (i=2;i<=a2;i++) {
             if (!nprimes[i]) {
