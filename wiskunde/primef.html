@@ -15,7 +15,7 @@ function primefactors() {
         alert("Invalid input, expected input to be positive");
     }
     a = Math.floor(Math.sqrt(a2))+1;
-    var nprimes = new BigUint64Array(a) || new Uint32Array(a);
+    var nprimes = new (BigUint64Array || Uint32Array)(a);
     for (i=2;i<a;i++) {
         if (!nprimes[i]) {
             k = (a2-a2%i)/i;
