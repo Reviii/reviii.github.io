@@ -91,16 +91,16 @@ function avg(arr) {
 function calculate() {
     var scale = (function() {
         var h = window.h-1; // off by one error?
-        var yMin = parseInt(document.getElementById("yMin").value);
-        var yRange = parseInt(document.getElementById("yMax").value)-yMin;
+        var yMin = Numner(document.getElementById("yMin").value);
+        var yRange = Number(document.getElementById("yMax").value)-yMin;
         return a=>-a/h*yRange+yMin+yRange; // -a vanwege omkeren y-as
     })();
     var graph = points.map(avg).map(scale);
     var originalY = graph.map(a=>a.toString()).map(a=>a==="NaN"?"":a).map(a=>a.split(".").join(","));
     var originalcsv = document.getElementById("unitX").value+";"+document.getElementById("unitY").value;
     var processedcsv = document.getElementById("unitX").value+";"+document.getElementById("resUnit").value;
-    var xMin = parseInt(document.getElementById("xMin").value);
-    var xInc = (parseInt(document.getElementById("xMax").value)-xMin)/(graph.length-1);
+    var xMin = Number(document.getElementById("xMin").value);
+    var xInc = (Number(document.getElementById("xMax").value)-xMin)/(graph.length-1);
     for (var i=0;i<graph.length;i++) {
         originalcsv += "\n"+(xMin+xInc*i).toString().split(".").join(",")+";"+originalY[i];
     }
