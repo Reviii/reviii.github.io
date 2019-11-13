@@ -91,7 +91,7 @@ function avg(arr) {
 function calculate() {
     var scale = (function() {
         var h = window.h-1; // off by one error?
-        var yMin = Numner(document.getElementById("yMin").value);
+        var yMin = Number(document.getElementById("yMin").value);
         var yRange = Number(document.getElementById("yMax").value)-yMin;
         return a=>-a/h*yRange+yMin+yRange; // -a vanwege omkeren y-as
     })();
