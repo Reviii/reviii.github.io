@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Markov chain generator</title>
+</head>
+<body>
+<textarea cols="100" rows="10"></textarea><br>
+Output length: <input id="i_o_l" value="10000"> chars. Lookback length: <input id="i_l" value="3"> chars. <button onclick='outp.value=markovChain(inp.value, document.getElementById("i_o_l").value, document.getElementById("i_l").value)'>Markov chain</button><br>
+<textarea cols="100" rows="10"></textarea>
+<script>
+var inp = document.getElementsByTagName("textarea")[0];
+var outp = document.getElementsByTagName("textarea")[1];
+
+function createLookup(text, memsize) {
+    //alert("Lookup:\n"+JSON.stringify({text:text,memsize:memsize}));
+    var lookup = {};
+    for (var i=0;i<(text.length-memsize);i++) {
+        let key = text.substr(i, memsize);
+        if (!lookup[key]) lookup[key] = [];
+        lookup[key][lookup[key].length] = text.charAt(i+memsize);
+    }
+    return lookup;
+}
+//alert(JSON.stringify(createLookup("Bert is een vis, want hij is heel erg dik!", 2)));
+function markovChain(text, l, memsize) {
+    //alert("Chain: \n"+JSON.stringify({text:text,l:l,memsize:memsize}));
+    l = Number(l) || 50;
+    memsize = Number(memsize) || 3;
+    var lookup = createLookup(text, memsize);
+    var lookups = [];
+    for (var i=0;i<memsize;i++) {
+        lookups[i] = createLookup(text, i);
+    }
+    var markov = function (a) {
+        var o = a;
+        //alert(a);
+        a = lookup[a];
+        if (a) {
+            return a[Math.floor(Math.random()*a.length)];
+        } else {
+            //alert("Advanced lookup\n"+o+"\n"+JSON.stringify(lookups))
+            for (var i=memsize-1;i>=0;i--) {
+                o = o.substr(1);
+                a = lookups[i][o];
+                if (a) {
+                    //alert("Found!:\n"+a[Math.floor(Math.random()*a.length)]);
+                    return a[Math.floor(Math.random()*a.length)]
+                }
+            }
+        }
+    }
+    var chain = "";
+    var mem = text.substr(Math.floor(Math.random()*(text.length-memsize)), memsize);
+    //alert(memsize+"\n"+mem);
+    for (var i=0;i<l;i++) {
+        //alert(mem);
+        try { var m = markov(mem); } catch (e) { alert(e.message+"\n"+mem); m=prompt() }
+        mem = mem.substr(1)+m;
+        chain += m;
+    }
+    return chain;
+}
+</script>
+</body>
+</html>
