@@ -15,9 +15,13 @@
 <script>
 try {
     if (!localStorage.miauwtimersettings) {
-        settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+        settings = {};
     } else {
         var settings = JSON.parse(localStorage.miauwtimersettings);
+    }
+    { // add default values
+        let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={}} = settings;
+        settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}}}
     }
     function elem(id) { return document.getElementById(id); }
 
