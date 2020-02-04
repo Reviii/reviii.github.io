@@ -3,7 +3,7 @@
 <body>
 
 <iframe id="myframe" src="index.html"></iframe><textarea onblur="try { document.getElementById('eval').innerText = x.contentWindow.eval(this.value) } catch(e) { document.getElementById('eval').innerHTML='<span style=\'color:red\'>line: '+e.line+', column: '+e.column+': '+e.message+'</span>' }"></textarea><span id="eval"></span>
-
+<!-- note: if the line is 5 and the column a lot than it is most likely the line/col of this document -->
 
 <p id="demo"></p>
 
