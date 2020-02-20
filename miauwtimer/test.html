@@ -197,7 +197,7 @@ var lastF;
 function klokje() {
     if (klok) requestAnimationFrame(klokje); else return;
     var f = d - new Date();
-    f=f/1000;
+    f = Math.ceil(f/1000);
     if (f!==lastF) document.getElementById("demo").innerHTML = Math.ceil(f);
     lastF = f;
     if (document.getElementById("demo").innerHTML < 0) {
