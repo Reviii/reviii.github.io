@@ -80,7 +80,7 @@ try { // add default values
     alert("Your browser does not fully support destructering assignments")
 }
 var klok = false
-var klok2 = setInterval(klokje, 50);
+//var klok2 = setInterval(klokje, 50);
 document.body.addEventListener("keypress", toets)
 document.body.addEventListener("keydown", pijl)
 
@@ -153,11 +153,12 @@ function bel() {
 }
 
 function start() {
+if (!klok) requestAnimationFrame(klokje);
+klok = true;
 document.getElementById("input").style.visibility = "hidden"
 document.getElementById("knop").style.visibility  = "hidden"
 document.getElementById("demo").style.visibility = "visible"
 document.getElementById("demo").innerHTML = ""
-klok = true
 functie()
 }
 
@@ -190,20 +191,18 @@ f = f+86400
 if (Number.isNaN(f)) {
     setTimeout(reset, 500)
 }
-if (klok) {
-document.getElementById("demo").innerHTML = Math.ceil(f);
-}
 }
 
+var lastF;
 function klokje() {
-if (klok) {
-var f = d - new Date()
-f=f/1000
-document.getElementById("demo").innerHTML = Math.ceil(f);
-if (document.getElementById("demo").innerHTML < 0) {
-reset();
-}
-}
+    if (klok) requestAnimationFrame(klokje); else return;
+    var f = d - new Date();
+    f=f/1000;
+    if (f!==lastF) document.getElementById("demo").innerHTML = Math.ceil(f);
+    lastF = f;
+    if (document.getElementById("demo").innerHTML < 0) {
+        reset();
+    }
 }
 
 function reset() {
