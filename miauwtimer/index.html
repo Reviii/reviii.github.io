@@ -29,33 +29,65 @@ img {
     width: 100%;
     height: 100%;
 }
+button {
+    color: #000;
+    background-color: #0f0;
+    width: 25%;
+    height: 50%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    border-width: 2px 0;
+    border-radius: 0;
+    border-color: #000;
+    font-size: 5vw;
+}
+input {
+    width: calc(75% - 2px);
+    height: calc(50% - 6px);
+    margin: 0;
+    padding: 1px;
+    position: absolute;
+    top: 25%;
+    left: 0px;
+    border-width: 2px 0;
+    border-radius: 0;
+    border-color: #000;
+    font-size: 15vw;
+}
 </style>
 </head>
 <body>
-<!-- Versie 19 sep 2019 -->
-<input id="input"><button onClick="start()" id="knop">aftellen!</button>
-<p id="demo" style="visibility:hidden;font-size: 100px;text-align:center"></p><div>
+<!-- Versie 20 feb 2020 -->
+<div>
 <img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
+<input id="input"><button onClick="start()" id="knop">aftellen!</button>
+<p id="demo" style="visibility:hidden;font-size: 100px;text-align:center;"></p>
 
 <script>
 if (localStorage.miauwtimersettings) {
     var settings = JSON.parse(localStorage.miauwtimersettings);
 } else {
-    var settings = {autostart: false, autofill: {enabled: true, o: true, b: true, other: {default: {enabled: false, content: ""}, short: {enabled: false, content: ""} }}};
+    var settings = {}
+}
+{ // add default values
+    let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={}} = settings;
+    settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}}}
 }
 var klok = false
 var klok2 = setInterval(klokje, 50);
+document.body.addEventListener("keypress", toets)
+document.body.addEventListener("keydown", pijl)
 
-document.getElementsByTagName("DIV")[0].style.display = "none"
 var nm = 0
 var arrkleur1 = ["#000000", "#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ff00ff", "#ffff00", "#ffffff"]
 var arrkleur2 = ["#ffffff", "#00ffff", "#ff00ff", "#ffff00", "#ff0000", "#00ff00", "#0000ff", "#000000"]
 nml = 1
 function thema(nml) {
 nm = nml
-while (nm > 7) { 
-nm = nm-8
-}
+nm = nm%8
 document.body.style.backgroundColor = arrkleur2[nm];
 document.getElementById("demo").style.color = arrkleur1[nm]
 document.getElementsByTagName("DIV")[0].style.display = "none"
@@ -89,31 +121,39 @@ thema(nm+1)
 
 bel()
 function bel() {
-if (settings.autofill.enabled) {
-var belsec =   [29700,32400,35100,37800, 38700, 41400, 44100, 45900, 48600, 51300, 51600, 54300, 57000]
-var beltijd =  "8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" ")
-var t1 = new Date();
-var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
-var text = beltijd[0]
-var i = 1
-while (i < belsec.length) {
-if (t < belsec[i] && t >= belsec[i-1]) {
-text = beltijd[i]
-}
-i++
-}
-document.getElementById("input").value = text
-}
+    if (settings.autofill.enabled) {
+        var beltijd = []
+        if (settings.autofill.o) beltijd = beltijd.concat("8:15 9:00 9:45 10:00 10:45 11:30 12:00 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
+        if (settings.autofill.b) beltijd = beltijd.concat("8:15 9:00 9:45 10:30 10:45 11:30 12:15 12:45 13:30 14:15 14:20 15:05 15:50".split(" "))
+        if (settings.autofill.other.default.enabled) beltijd = beltijd.concat(settings.autofill.other.default.content.split(" "))
+        beltijd =  Array.from(new Set(beltijd))
+        beltijd=beltijd.sort((a, b) => parseTijd(a)-parseTijd(b))
+        var belsec = beltijd.map(parseTijd)
+        var t1 = new Date();
+        var t = t1.getHours()*3600+t1.getMinutes()*60+t1.getSeconds()+t1.getMilliseconds()/1000;
+        var text = beltijd.length>0 ? beltijd[0] : ""
+        var i = 1
+        while (i < belsec.length) {
+             if (t < belsec[i] && t >= belsec[i-1]) {
+                 text = beltijd[i]
+            }
+            i++
+        }
+        document.getElementById("input").value = text
+    }
+    function parseTijd(tijd) {
+        tijd=tijd.split(":"); 
+        if (!tijd[1]) tijd[1]="0";
+        if (!tijd[2]) tijd[2]="0";
+        return Number(tijd[0])*3600+Number(tijd[1])*60+Number(tijd[2]);
+    }
 }
 
 function start() {
 document.getElementById("input").style.visibility = "hidden"
 document.getElementById("knop").style.visibility  = "hidden"
 document.getElementById("demo").style.visibility = "visible"
-document.getElementsByTagName("DIV")[0].style.display = "block"
 document.getElementById("demo").innerHTML = ""
-document.body.addEventListener("keypress", toets)
-document.body.addEventListener("keydown", pijl)
 klok = true
 functie()
 }
@@ -126,18 +166,18 @@ if (x.toLowerCase() == "heeft revi dit gemaakt?") {
 alert("Ja")
 }
 x = x.split(":");
+x = x.map(Number);
+d.setHours(0);
+d.setMinutes(0);
+d.setSeconds(0);
+d.setMilliseconds(0);
 d.setHours(x[0]);
 if (x.length > 1) {
-d.setMinutes(x[1]);
-} else {
-d.setMinutes(0);
+d.setMinutes(x[1]+d.getMinutes());
 }
 if (x.length > 2) {
-d.setSeconds(x[2]);
-} else {
-d.setSeconds(0);
+d.setSeconds(x[2]+d.getSeconds());
 }
-d.setMilliseconds(0)
 var e = new Date();
 var f = d.getTime() /1000 - e.getTime() / 1000;
 if (f < 0) {
@@ -167,17 +207,14 @@ function reset() {
 document.getElementById("input").style.visibility = "visible"
 document.getElementById("knop").style.visibility = "visible"
 document.getElementById("demo").style.visibility = "hidden"
-document.body.removeEventListener("keypress", toets)
-document.body.removeEventListener("keydown", pijl)
 klok = false
 bel()
 if (settings.autostart) {
 start()
 }
 }
-
 if (settings.autostart) {
-start()
+    start();
 }
 </script>
 
