@@ -12,7 +12,7 @@ var outp = document.getElementsByTagName("textarea")[1];
 
 function createLookup(text, memsize) {
     //alert("Lookup:\n"+JSON.stringify({text:text,memsize:memsize}));
-    var lookup = {};
+    var lookup = Object.create(null);
     for (var i=0;i<(text.length-memsize);i++) {
         let key = text.substr(i, memsize);
         if (!lookup[key]) lookup[key] = [];
