@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<iframe id="myframe"></iframe><textarea onblur="try { addLoadScript(); document.getElementById('eval').innerText = x.contentWindow.eval(this.value) } catch(e) { document.getElementById('eval').innerHTML='<span style=\'color:red\'>line: '+e.line+', column: '+e.column+': '+e.message+'</span>' }"></textarea><span id="eval"></span>
+<iframe id="myframe"></iframe><textarea rows="onblur="try { addLoadScript(); document.getElementById('eval').innerText = x.contentWindow.eval(this.value) } catch(e) { document.getElementById('eval').innerHTML='<span style=\'color:red\'>line: '+e.line+', column: '+e.column+': '+e.message+'</span>' }"></textarea><span id="eval"></span>
 <!-- note: if the line is 5 and the column a lot than it is most likely the line/col of this document -->
 
 <p id="demo"></p>
@@ -10,9 +10,10 @@
 <script>
 document.getElementById("myframe").src = prompt("src?", "/")
 var x = document.getElementById("myframe")
-(function addLoadScript() {
+function addLoadScript() {
     x.contentWindow.eval("loadScript = function(source){var script = document.createElement('script');script.src=source;document.head.appendChild(script);}");
-})()
+}
+addLoadScript()
 setInterval(myFunction, 50)
 function myFunction() {
     var y = (x.contentWindow || x.contentDocument);
