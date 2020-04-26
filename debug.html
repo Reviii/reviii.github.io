@@ -17,8 +17,11 @@ addLoadScript()
 setInterval(myFunction, 50)
 function myFunction() {
     var y = (x.contentWindow || x.contentDocument);
-    if (y.document)y = y.document;
-    document.getElementById("demo").innerHTML = y.getElementsByTagName("html")[0].outerHTML.split("<").join("&lt;").split("\n").join("<br>");
+    try { if (y.document) y = y.document; } catch(e) { x.src=x.src; return; }
+    let htmlTag = y.getElementsByTagName("html")[0]
+    if (htmlTag) {
+        document.getElementById("demo").innerHTML = htmlTag.outerHTML.split("<").join("&lt;").split("\n").join("<br>");
+    }
 }
 </script>
 
