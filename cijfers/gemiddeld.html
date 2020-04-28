@@ -38,8 +38,8 @@ var en = window.atob("Cg==")
 var text = document.getElementById("import").value.split(en)
 var i;
 for (i=0;i<text.length-1;i++) {
-cijfer[cijfer.length] = text[i].split(" ")[0]
-weging[weging.length] = text[i].split(" ")[1]
+cijfer[cijfer.length] = Number(text[i].split(" ")[0])
+weging[weging.length] = Number(text[i].split(" ")[1])
 document.getElementById("demo").innerHTML += text[i].split(" ")[0]+" "+text[i].split(" ")[1]+"<br>"
 }
 var inputs = document.getElementsByTagName("input")
