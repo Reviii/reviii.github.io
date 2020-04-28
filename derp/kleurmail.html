@@ -25,7 +25,7 @@ function myFunction() {
         uri += "<span style=\"color:" + boem[i % boem.length] + "\">" + res1[i] + "</span>"
     }
     var res = encodeURIComponent(uri);
-    document.getElementById("demo").innerHTML = "<a href=\"mailto:?body=" + res + "\">Mailen!</a><br>"+DOMPurify.sanitize(res);
+    document.getElementById("demo").innerHTML = "<a href=\"mailto:?body=" + res + "\">Mailen!</a><br>"+DOMPurify.sanitize(uri);
 }
 </script>
 
