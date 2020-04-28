@@ -9,12 +9,12 @@ function encode() {
 var msg = document.getElementById("message").value
 var text = ""
 for (var i=0;i<msg.length;i++) {
-text += msg.slice(0, i+1)+"<br>"
+text += msg.slice(0, i+1)+"\n"
 }
 for (;i>0;i--) {
-text += msg.slice(0, i)+"<br>"
+text += msg.slice(0, i)+"\n"
 }
-document.getElementById("result").innerHTML = text
+document.getElementById("result").innerText = text
 }
 </script>
 </body>
