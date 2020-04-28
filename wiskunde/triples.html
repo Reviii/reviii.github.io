@@ -12,35 +12,28 @@
 <p id="demo"></p>
 
 <script>
-if (location.href.split("io/")[0] == "http://miauwtimer.getforge.") {
-  var u1 = location.href.split("io/")[1]
-  var u2 = "https://reviii.github.io/miauwtimer/"+u1
-  if (confirm("Op 1 mei stopt miauwtimer.getforge.io/"+u1+",\nals je nu op OK drukt ga je naar\n"+u2)) {
-      location.href = u2
-  }
-}
 function start() {
-var x = ""
-var a, b;
-var checked = document.getElementById("+-").value=="+";
-var p = "-"
-if (checked) {
-p = "+"
-}
-var s = atob("sg==")
-for (a=1;a<document.getElementById("a").value;a++) {
-for (b=1;b<document.getElementById("b").value;b++) {
-if (checked) {
-var ans = Math.sqrt(a*a+b*b+a*b)
-} else {
-var ans = Math.sqrt(a*a+b*b-a*b)
-}
-if (ans==Math.floor(ans)) {
-x = x+a+s+"+"+b+s+""+p+a+"*"+b+"="+ans+s+"<br>"
-}
-}
-}
-document.getElementById("demo").innerHTML = x;
+    var x = ""
+    var a, b;
+    var checked = document.getElementById("+-").value=="+";
+    var p = "-"
+    if (checked) {
+        p = "+"
+    }
+    var s = atob("sg==")
+    for (a=1;a<document.getElementById("a").value;a++) {
+        for (b=1;b<document.getElementById("b").value;b++) {
+            if (checked) {
+                var ans = Math.sqrt(a*a+b*b+a*b)
+            } else {
+                var ans = Math.sqrt(a*a+b*b-a*b)
+            }
+            if (ans==Math.floor(ans)) {
+                x = x+a+s+"+"+b+s+""+p+a+"*"+b+"="+ans+s+"\n"
+            }
+        }
+    }
+    document.getElementById("demo").innerText = x;
 }
 </script>
 
