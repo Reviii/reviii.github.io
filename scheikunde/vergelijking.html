@@ -126,7 +126,7 @@ function gcdobjarr(arr, key1, key2) {
     return c;
 }
 function displayF(f) {
-    document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" &rarr; "+f[1].map(joinElement).join(" + ")
+    document.getElementById("output").innerText = f[0].map(joinElement).join(" + ")+" → "+f[1].map(joinElement).join(" + ")
 }
 function joinElement(element) {
     var str=""
