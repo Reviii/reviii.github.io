@@ -13,16 +13,18 @@ var x = document.getElementById("myframe")
 function addLoadScript() {
     x.contentWindow.eval("loadScript = function(source){var script = document.createElement('script');script.src=source;document.head.appendChild(script);}");
 }
-addLoadScript()
-setInterval(myFunction, 50)
+var prevHTML = "";
 function myFunction() {
     var y = (x.contentWindow || x.contentDocument);
     try { if (y.document) y = y.document; } catch(e) { x.src=x.src; return; }
-    let htmlTag = y.getElementsByTagName("html")[0]
+    let htmlTag = y.getElementsByTagName("html")[0];
     if (htmlTag) {
-        document.getElementById("demo").innerHTML = htmlTag.outerHTML.split("<").join("&lt;").split("\n").join("<br>");
+        let HTML = htmlTag.outerHTML;
+        if (HTML!==prevHTML) document.getElementById("demo").innerText = HTML;
+        prevHTML = html;
     }
 }
+setInterval(myFunction, 50)
 </script>
 
 </body>
