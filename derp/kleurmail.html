@@ -10,14 +10,13 @@
 
 <p id="demo"></p>
 
-<script src="https://cure53.de/purify.js"></script>
 <script>
 function myFunction() {
     var kleurtjes = document.getElementById("kleur").value;
     if (kleurtjes == "#cool") {
         kleurtjes = "#ff0000;font-size:100px #00ff00;font-size:100px #0000ff;font-size:100px #00ffff;font-size:100px #ff00ff;font-size:100px #ffff00;font-size:100px"
     }
-    var boem = kleurtjes.split(" ")
+    var boem = kleurtjes.split(" ").join("\n").split("\n").map(a=>a.split("\"").join("&quot"));
     var res0 = document.getElementById("in").value;
     var res1 = res0.split("");
     var uri = "";
@@ -25,7 +24,7 @@ function myFunction() {
         uri += "<span style=\"color:" + boem[i % boem.length] + "\">" + res1[i] + "</span>"
     }
     var res = encodeURIComponent(uri);
-    document.getElementById("demo").innerHTML = "<a href=\"mailto:?body=" + res + "\">Mailen!</a><br>"+DOMPurify.sanitize(uri);
+    document.getElementById("demo").innerHTML = "<a href=\"mailto:?body=" + res + "\">Mailen!</a><br>"+uri;
 }
 </script>
 
