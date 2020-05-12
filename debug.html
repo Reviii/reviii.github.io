@@ -21,7 +21,7 @@ function myFunction() {
     if (htmlTag) {
         let HTML = htmlTag.outerHTML;
         if (HTML!==prevHTML) document.getElementById("demo").innerText = HTML;
-        prevHTML = html;
+        prevHTML = HTML;
     }
 }
 setInterval(myFunction, 50)
