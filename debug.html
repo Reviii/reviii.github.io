@@ -16,7 +16,7 @@ function addLoadScript() {
 var prevHTML = "";
 function myFunction() {
     var y = (x.contentWindow || x.contentDocument);
-    try { if (y.document) y = y.document; } catch(e) { x.src=x.src; return; }
+    try { if (y.document) y = y.document; } catch(e) { x.src=x.src; document.getElementById("demo").innerHTML = "<span style='color: red'>Location reset</span>"; return; }
     let htmlTag = y.getElementsByTagName("html")[0];
     if (htmlTag) {
         let HTML = htmlTag.outerHTML;
