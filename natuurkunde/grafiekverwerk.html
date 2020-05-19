@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="step1">
-    <input type="file" id="file">Voorwaarde:<input id="condition" title="Beware of self-xss" value="(g+b)/r>2.5"><button onclick="process()">Verwerk!</button><br>
+    <input type="file" id="file"><label>Voorwaarde:<input id="condition" title="Beware of self-xss" value="(g+b)/r>2.5"></label><button onclick="process()">Verwerk!</button><br>
     <img class="thumb" id="original"><img class="thumb" id="processed"><br>
     <button onclick="document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block'">Volgende stap</button>
 </div>
