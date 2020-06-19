@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple pendulum model</title>
+<style>
+div.vertical-wrap {
+    display: inline-flex; flex-direction: column; vertical-align: top
+}
+</style>
+</head>
+<body>
+Vars: <input id="vars" oninput="updateVariableSelect(this.value.split(' '))" style="width: 50%" value="h v constante"><br>
+<div class="vertical-wrap">Init:<textarea id="init" rows="10" cols="40">var l=1;
+h=Math.PI/2;
+v=0;
+constante=0;</textarea></div>
+<div class="vertical-wrap">Loop:<textarea id="loop" rows="10" cols="40">v+= -9.81*Math.sin(h)*dt;
+//v -= 0.1*v*dt;
+h += v/l*dt;</textarea></div>
+<div class="vertical-wrap">Before log:<textarea id="beforeLog" cols="40" rows="4">h = ((h+Math.PI)%(2*Math.PI)-2*Math.PI)%(2*Math.PI)+Math.PI;</textarea>After log:<textarea id="afterLog" cols="40" rows="4"></textarea></div><br>
+<label>t:<input id="t" value="10"></label> <label>dt:<input id="dt" value="0.00001"></label> <label>dtLog:<input id="dtLog" value="0.001"></label><br>
+<label>Graph: <select id="g" oninput="loadGraphOptions()"></select></label> <label>Scale:<input id="s" oninput="updateGraphOptions()"></label> <label>Color:<input id="color" oninput="updateGraphOptions()"></label><br>
+<label>lineWidth:<input id="r" value="2"></label> <label>renderTime:<input id="renderTime" value="5"></label><span id="mspf"></span><br>
+<canvas id="graph" width="1000" height="500" style="/*image-rendering: pixelated*/"></canvas><br>
+<button onclick="start()">Start</button><button onclick="clearCanvas(elem('graph'))">Clear canvas</button><button onclick="elem('graph').toBlob(a=>alert(window.URL.createObjectURL(a)))">toBLob</button><button onclick="restartRender()">Restart Render</button><button onclick="alert(code)">Display Code</button>
+<script>
+var pen = new Worker("peneval.js");
+var elem = id=>document.getElementById(id);
+var elnum = id=>Number(elem(id).value);
+var messages = {renderedLength: 0, t: new Float64Array(1)};
+messages.t.fill(-1);
+var options = {};
+var graphOptions = {h: {s:"3.14159265358979323846", color:"#f00"}, v: {s:"10", color:"#0ff"}, constante: {s:"1", color:"#000"}};
+updateVariableSelect(elem("vars").value.split(" "));
+var code="";
+//var t;
+pen.onmessage = function(a) {
+    if (typeof a.data == "string") { window.code = a.data; return }
+    var ctx = elem("graph").getContext("2d");
+    ctx.fillStyle = options.color;
+    messages = {renderedLength: 0};
+    a = a.data;
+    for (var i in a) {
+        messages[i] = new Float64Array(a[i]);
+    }
+    console.log(messages);
+}
+var renderMessages = (function() {
+    var graph = elem("graph");
+    clearCanvas(graph);
+    var w = graph.width;
+    var h = graph.height;
+    var ctx = graph.getContext("2d", { alpha: false });
+    var lastTime = performance.now();
+    return function() {
+        requestAnimationFrame(renderMessages);
+        var startTime = performance.now();
+        if (messages.t[messages.renderedLength]===-1) { 
+            lastTime = performance.now();
+            return;
+        }
+        ctx.beginPath();
+        let endTime = startTime+options.renderTime;
+        for (var i=messages.renderedLength-1;messages.t[i]!==-1&&endTime>performance.now();i++) {
+            let m = messages;
+            let x = m.t[i]/options.t*w;
+            let y = 500-(m[options.g][i]/(2*options.s)+0.5)*h;
+            ctx.moveTo(x, y);
+            ctx.arc(x, y, options.r, 0, 2*Math.PI, false);
+        }
+        ctx.fill();
+        messages.renderedLength=Math.max(messages.renderedLength, i);
+        elem("mspf").innerText=Math.round(100*(performance.now()-startTime))/100+"/"+Math.round(100*(performance.now()-lastTime))/100;
+        lastTime = performance.now();
+    }
+})();
+requestAnimationFrame(renderMessages);
+function start() {
+    var elnum = id=>Number(elem(id).value);
+    pen.postMessage({vars:elem("vars").value.split(" "),init:elem("init").value,loop:elem("loop").value,beforeLog:elem("beforeLog").value,afterLog:elem("afterLog").value,t:elnum("t"),dt:elnum("dt"),dtLog:elnum("dtLog")});
+    options = {t: elnum("t"), r: elnum("r"), s: elnum("s"), g: elem("g").value, color: elem("color").value, renderTime: elnum("renderTime")};
+}
+function restartRender() {
+    options = {t: elnum("t"), r: elnum("r"), s: elnum("s"), g: elem("g").value, color: elem("color").value, renderTime: elnum("renderTime")};
+    messages.renderedLength = 0;
+    var ctx = elem("graph").getContext("2d");
+    ctx.fillStyle = options.color;
+}
+function clearCanvas(c) {
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillStyle = options.color;
+}
+function updateVariableSelect(vars) {
+    var select = document.getElementById("g");
+    var selectedOption = select.value;
+    select.innerHTML = "";
+    for (var i=0;i<vars.length;i++) {
+        select.add(new Option(vars[i], vars[i]));
+        if (vars[i]===selectedOption) select.selectedIndex=i;
+    }
+    loadGraphOptions();
+}
+function loadGraphOptions() {
+    var options = graphOptions[elem("g").value];
+    if (options) {
+        elem("s").value = options.s;
+        elem("color").value = options.color;
+    }
+}
+function updateGraphOptions() {
+    graphOptions[elem("g").value] = {s: elem("s").value, color: elem("color").value};
+}
+</script>
+</body>
+</html>
