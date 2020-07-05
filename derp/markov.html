@@ -23,8 +23,8 @@ function createLookup(text, memsize) {
 //alert(JSON.stringify(createLookup("Bert is een vis, want hij is heel erg dik!", 2)));
 function markovChain(text, l, memsize) {
     //alert("Chain: \n"+JSON.stringify({text:text,l:l,memsize:memsize}));
-    l = Number(l) || 50;
-    memsize = Number(memsize) || 3;
+    l = Number(l);
+    memsize = Number(memsize);
     var lookup = createLookup(text, memsize);
     var lookups = [];
     for (var i=0;i<memsize;i++) {
@@ -54,7 +54,7 @@ function markovChain(text, l, memsize) {
     for (var i=0;i<l;i++) {
         //alert(mem);
         try { var m = markov(mem); } catch (e) { alert(e.message+"\n"+mem); m=prompt() }
-        mem = mem.substr(1)+m;
+        mem = (mem+m).substr(1);
         chain += m;
     }
     return chain;
