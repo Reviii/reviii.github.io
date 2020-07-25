@@ -34,7 +34,7 @@ document.getElementById("antwoord").focus()
 }
   
 function cool() {
-document.body.innerHTML+="<h4>Extra dingen</h4>JSON:<br>"+JSON.stringify(antwoorden).split("&").join("&amp;").split("<").join("&lt;")+"<br>Terugscript:<br>antwoorden = "+JSON.stringify(antwoorden.slice(0,antwoorden.length-1)).split("&").join("&amp;").split("<").join("&lt;")+'<br>document.getElementById("vraag").innerText="Wat is '+antwoorden[antwoorden.length-2].split("&").join("&amp;").split("<").join("&lt;")+'?"'+'<br><br><span onclick="nietcool()" color="#00FFFF"><u>Terug</u></span>'
+document.body.innerHTML+="<h4>Extra dingen</h4>JSON:<br>"+JSON.stringify(antwoorden).split("&").join("&amp;").split("<").join("&lt;")+"<br>Terugscript:<br>antwoorden = "+JSON.stringify(antwoorden.slice(0,antwoorden.length-1)).split("&").join("&amp;").split("<").join("&lt;")+'<br>document.getElementById("vraag").innerText='+JSON.stringify("Wat is "+antwoorden[antwoorden.length-2]).split("&").join("&amp;").split("<").join("&lt;")+'?"'+'<br><br><span onclick="nietcool()" color="#00FFFF"><u>Terug</u></span>'
 }
 function nietcool() {
 document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text;
