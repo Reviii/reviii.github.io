@@ -25,10 +25,10 @@ if (goed) {
 document.getElementById("vraag").innerText = "Wat is "+antwoord+"?"
 } else {
 for (i=0;i<antwoorden.length-1;i++) {
-text = text+"Wat is "+antwoorden[i]+"?\n"+antwoorden[i+1]+"\n\n"
+text += "Wat is "+antwoorden[i].split("&").join("&amp;").split("<").join("&lt;")+"?<br>"+antwoorden[i+1].split("&").join("&amp;").split("<").join("&lt;")+"<br><br>"
 }
 i=i-1
-document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text.split("&").join("&amp;").split("<").join("&lt;");
+document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text;
 }
 document.getElementById("antwoord").focus()
 }
