@@ -25,7 +25,7 @@ if (goed) {
 document.getElementById("vraag").innerText = "Wat is "+antwoord+"?"
 } else {
 for (i=0;i<antwoorden.length-1;i++) {
-text = text+"Wat is "+antwoorden[i]+"?<br>"+antwoorden[i+1]+"<br><br>"
+text = text+"Wat is "+antwoorden[i]+"?\n"+antwoorden[i+1]+"\n\n"
 }
 i=i-1
 document.body.innerHTML = "Score: <span onclick='cool()'>"+i+"</span><br><br>"+text.split("&").join("&amp;").split("<").join("&lt;");
