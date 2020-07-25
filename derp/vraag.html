@@ -23,6 +23,7 @@ goed = false
 antwoorden[antwoorden.length] = antwoord
 if (goed) {
 document.getElementById("vraag").innerText = "Wat is "+antwoord+"?"
+document.getElementById("antwoord").focus()
 } else {
 for (i=0;i<antwoorden.length-1;i++) {
 text += "Wat is "+antwoorden[i].split("&").join("&amp;").split("<").join("&lt;")+"?<br>"+antwoorden[i+1].split("&").join("&amp;").split("<").join("&lt;")+"<br><br>"
@@ -30,7 +31,6 @@ text += "Wat is "+antwoorden[i].split("&").join("&amp;").split("<").join("&lt;")
 i=i-1
 nietcool();
 }
-document.getElementById("antwoord").focus()
 }
   
 function cool() {
