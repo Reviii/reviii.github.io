@@ -9,15 +9,15 @@ div.vertical-wrap {
 </style>
 </head>
 <body>
-Vars: <input id="vars" oninput="updateVariableSelect(this.value.split(' '))" style="width: 50%" value="h v constante"><br>
+Vars: <input id="vars" oninput="updateVariableSelect(this.value.split(' '))" style="width: 50%" value="α v constante"><br>
 <div class="vertical-wrap">Init:<textarea id="init" rows="10" cols="40">var l=1;
-h=Math.PI/2;
+α=Math.PI/2;
 v=0;
 constante=0;</textarea></div>
-<div class="vertical-wrap">Loop:<textarea id="loop" rows="10" cols="40">v+= -9.81*Math.sin(h)*dt;
+<div class="vertical-wrap">Loop:<textarea id="loop" rows="10" cols="40">v+= -9.81*Math.sin(α)*dt;
 //v -= 0.1*v*dt;
-h += v/l*dt;</textarea></div>
-<div class="vertical-wrap">Before log:<textarea id="beforeLog" cols="40" rows="4">h = ((h+Math.PI)%(2*Math.PI)-2*Math.PI)%(2*Math.PI)+Math.PI;</textarea>After log:<textarea id="afterLog" cols="40" rows="4"></textarea></div><br>
+α += v/l*dt;</textarea></div>
+<div class="vertical-wrap">Before log:<textarea id="beforeLog" cols="40" rows="4">α = ((α+Math.PI)%(2*Math.PI)-2*Math.PI)%(2*Math.PI)+Math.PI;</textarea>After log:<textarea id="afterLog" cols="40" rows="4"></textarea></div><br>
 <label>t:<input id="t" value="10"></label> <label>dt:<input id="dt" value="0.00001"></label> <label>dtLog:<input id="dtLog" value="0.001"></label><br>
 <label>Graph: <select id="g" oninput="loadGraphOptions()"></select></label> <label>Scale:<input id="s" oninput="updateGraphOptions()"></label> <label>Color:<input id="color" oninput="updateGraphOptions()"></label><br>
 <label>lineWidth:<input id="r" value="2"></label> <label>renderTime:<input id="renderTime" value="5"></label><span id="mspf"></span><br>
@@ -30,7 +30,7 @@ var elnum = id=>Number(elem(id).value);
 var messages = {renderedLength: 0, t: new Float64Array(1)};
 messages.t.fill(-1);
 var options = {};
-var graphOptions = {h: {s:"3.14159265358979323846", color:"#f00"}, v: {s:"10", color:"#0ff"}, constante: {s:"1", color:"#000"}};
+var graphOptions = {α: {s:"3.14159265358979323846", color:"#f00"}, v: {s:"10", color:"#0ff"}, constante: {s:"1", color:"#000"}};
 updateVariableSelect(elem("vars").value.split(" "));
 var code="";
 //var t;
