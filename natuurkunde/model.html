@@ -135,6 +135,7 @@ function loadSave(name) {
     for (var i in elems) {
         document.getElementById(i).value = elems[i];
     }
+    elem("vars").oninput(); // update the variable select
 }
 </script>
 </body>
