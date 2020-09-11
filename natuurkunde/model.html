@@ -112,6 +112,30 @@ function loadGraphOptions() {
 function updateGraphOptions() {
     graphOptions[elem("g").value] = {s: elem("s").value, color: elem("color").value};
 }
+function save(name) {
+    var saves = JSON.parse(localStorage.modelsaves||"{}");
+    var inputs = document.getElementsByTagName("input");
+    var elems = {};
+    for (let i=0;i<inputs.length;i++) {
+        elems[inputs[i].id] = inputs[i].value;
+    }
+    var textareas = document.getElementsByTagName("textarea");
+    for (let i=0;i<textareas.length;i++) {
+        elems[textareas[i].id] = textareas[i].value;
+    }
+    saves[name] = {graphOptions, elems, version: 0};
+    localStorage.modelsaves = JSON.stringify(saves);
+}
+function loadSave(name) {
+    var save = JSON.parse(localStorage.modelsaves||"{}")[name];
+    if (!save) { alert(`Could not find save "${name}"`);return; }
+    if (save.version>0) { alert("save version > page version\nload aborted");return; }
+    window.graphOptions = save.graphOptions;
+    var elems = save.elems;
+    for (var i in elems) {
+        document.getElementById(i).value = elems[i];
+    }
+}
 </script>
 </body>
 </html>
