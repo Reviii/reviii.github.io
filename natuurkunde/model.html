@@ -9,7 +9,7 @@ div.vertical-wrap {
 </style>
 </head>
 <body>
-Vars: <input id="vars" oninput="updateVariableSelect(this.value.split(' '))" style="width: 50%" value="α v constante"><br>
+Vars: <input id="vars" oninput="updateVariableSelect(this.value.split(' '))" style="width: 50%" value="α v constante"><label>Name: <input id="savename" value="slinger"></label><button onclick="save(elem('savename').value)">Save</button><button onclick="loadSave(elem('savename').value)">Load</button><br>
 <div class="vertical-wrap">Init:<textarea id="init" rows="10" cols="40">var l=1;
 α=Math.PI/2;
 v=0;
