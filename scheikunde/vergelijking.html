@@ -1,9 +1,10 @@
 <html>
 <head>
-<title>Vergelijking v0.2.2</title>
+<title>Vergelijking v1.0.0</title>
 </head>
 <body>
 <input id="f" value="NH3+O2>N2+H2O" style="width:50%"><button onclick="solve()">Los op</button><p id="output"></p>
+<script src="equationSystemSolver.js"></script>
 <script>
 function solve()  {
     var f = document.getElementById("f").value;
@@ -16,45 +17,39 @@ function solve()  {
     var e = [];
     e[0] = getElementArray(f[0])
     e[1] = getElementArray(f[1])
-    var fold, foldnew;
-    foldnew = JSON.stringify(f)
-    var i = 0;
-    while (fold != foldnew) {
-    fold = foldnew;
-    lcmsolve()
-    foldnew = JSON.stringify(f)
-    i++
-    if (i > 20) {
-        alert("Can't solve")
-        fold = foldnew
+    let equations = [];
+    for (let i in e[0]) {
+        equations[equations.length] = []
+        equations[equations.length-1].source = i
+        for (let j=0;j<f[0].length;j++) {
+            equations[equations.length-1].push(f[0][j][i]||0)
+        }
+        for (let j=0;j<f[1].length;j++) {
+            equations[equations.length-1].push(-(f[1][j][i]||0))
+        }
     }
+    equations = solveEquationSystem(equations, a=>a[0], true)
+    equations.unsolved.map(a=>alert("Geen oplossingen gevonden voor '"+a.source+"'"))
+    equations = equations.solved
+    let lcmRes = 1
+    for (let i=0;i<equations.length;i++) {
+        for (let j=1;j<equations[i].length;j++) {
+            if (equations[i][j]) lcmRes = lcm(lcmRes, Math.abs(equations[i][j]))
+        }
+    }
+    f[0][0].a = lcmRes
+    for (let i=0;i<equations.length;i++) {
+        for (let j=1;j<equations[i].length;j++) {
+            if (equations[i][j]) {
+                if (j<f[0].length) {
+                    f[0][j].a = -lcmRes * equations[i][0] / equations[i][j]
+                } else {
+                    f[1][j-f[0].length].a = -lcmRes * equations[i][0] / equations[i][j]
+                }
+            }
+        }
     }
     displayF(f)
-    function lcmsolve() {
-      var i, j;
-      for (i in e[0]) {
-        if (e[0][i].length<2) {
-          if (e[1][i]) {
-            if (2>e[1][i].length) {
-              let a = lcm(f[1][e[1][i][0]][i]*f[1][e[1][i][0]].a, f[0][e[0][i][0]][i]*f[0][e[0][i][0]].a)
-              f[1][e[1][i][0]].a = a/f[1][e[1][i][0]][i]
-              f[0][e[0][i][0]].a = a/f[0][e[0][i][0]][i]
-            }
-          }
-        }
-      }
-      for (i in e[1]) {
-        if (e[1][i].length<2) {
-          if (e[0][i]) {
-            if (2>e[0][i].length) {
-              let a = lcm(f[0][e[0][i][0]][i]*f[0][e[0][i][0]].a, f[1][e[1][i][0]][i]*f[1][e[1][i][0]].a)
-              f[0][e[0][i][0]].a = a/f[0][e[0][i][0]][i]
-              f[1][e[1][i][0]].a = a/f[1][e[1][i][0]][i]
-            }
-          }
-        }
-      }
-    }
 }
 function splitElement(element) {
     var a = ""
@@ -97,7 +92,7 @@ for (i=0;i<f.length;i++) {
 for (k in f[i]) {
 if (k=="a") continue;
 if (e[k]) {
-e[k][e[k].length] = i; alert("Vergelijking is te moeilijk: \nEr kunnen geen oplossingen worden gevonden voor "+k)
+e[k][e[k].length] = i;
 } else {
 e[k] = []
 e[k][0] = i
