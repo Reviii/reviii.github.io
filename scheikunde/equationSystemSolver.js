@@ -1,19 +1,3 @@
-
-//CH4+O2->CO2+H2O
-let equations = [
-[1,0,-1,0], // C
-[4,0,0,-2], // H
-[0,2,-2,-1] // O
-]
-function gcd(a, b) {
-    var t = b;
-    while (b != 0 && !Number.isNaN(b)) {
-        t = b;
-        b = a % b;
-        a = t;
-     }
-     return a;
-}
 function divideByGcd(arr) {
     let d = 0
     for (let i=0;i<arr.length;i++) {
@@ -77,4 +61,3 @@ function solveEquationSystem(equations, extraCondition=()=>true, returnUnsolved=
     }
     return sol;
 }
-//JSON.stringify(solveEquationSystem(equations))

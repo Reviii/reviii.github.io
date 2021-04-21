@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vergelijking v1.0.0</title>
+<title>Vergelijking v1.1.0</title>
 </head>
 <body>
 <input id="f" value="FeS2+H2O+O2->FeSO11H14+H2SO4" style="width:50%"><button onclick="solve()">Los op</button><p id="output"></p>
@@ -14,11 +14,9 @@ function solve()  {
     f[1] = f[1].split("+")
     f[0] = f[0].map(splitElement)
     f[1] = f[1].map(splitElement)
-    var e = [];
-    e[0] = getElementArray(f[0])
-    e[1] = getElementArray(f[1])
+    var e = getElementArray(f[0].concat(f[1]))
     let equations = [];
-    for (let i in e[0]) {
+    for (let i in e) {
         equations[equations.length] = []
         equations[equations.length-1].source = i
         for (let j=0;j<f[0].length;j++) {
@@ -86,20 +84,15 @@ function splitKat(kat) {
     return obj
 }
 function getElementArray(f) {
-var i, j, k
-var e = {}
-for (i=0;i<f.length;i++) {
-for (k in f[i]) {
-if (k=="a") continue;
-if (e[k]) {
-e[k][e[k].length] = i;
-} else {
-e[k] = []
-e[k][0] = i
-}
-}
-}
-return e
+    var i, j, k
+    var e = {}
+    for (i=0;i<f.length;i++) {
+        for (k in f[i]) {
+            if (k=="a") continue;
+            if (!e[k]) e[k] = true;
+        }
+    }
+    return e
 }
 function gcd(a, b) {
     var t = b;
@@ -112,13 +105,6 @@ function gcd(a, b) {
 }
 function lcm(a, b) {
     return Math.abs(a)*Math.abs(b)/gcd(a, b)
-}
-function gcdobjarr(arr, key1, key2) {
-    var c = arr[0][key1]*arr[0][key2];
-    for (var i=1;i<arr.length;i++) {
-      c = gcd(arr[i][key1]*arr[i][key2], c);
-    }
-    return c;
 }
 function displayF(f) {
     document.getElementById("output").innerHTML = f[0].map(joinElement).join(" + ")+" &rarr; "+f[1].map(joinElement).join(" + ")
@@ -133,7 +119,7 @@ function joinElement(element) {
         str += i + element[i]
       }
     }
-    if (element.a=="1" || !element.a) element.a=""
+    if (element.a===1) element.a=""
     return element.a+str
 }
 </script>
