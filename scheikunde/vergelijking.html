@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vergelijking v1.1.0</title>
+<title>Vergelijking v1.1.1</title>
 </head>
 <body>
 <input id="f" value="FeS2+H2O+O2->FeSO11H14+H2SO4" style="width:50%"><button onclick="solve()">Los op</button><p id="output"></p>
@@ -44,6 +44,10 @@ function solve()  {
                 } else {
                     f[1][j-f[0].length].a = -lcmRes * equations[i][0] / equations[i][j]
                 }
+                break
+            }
+            if (j===equations[i].length-1) {
+                alert("Geen oplossingen gevonden voor '"+equations[i].source+"'")
             }
         }
     }
