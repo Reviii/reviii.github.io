@@ -62,11 +62,12 @@ function splitElement(element) {
     if (a==="") { 
       a ="1"
     }
-    var obj = {a: Number(a)}
+    var obj = {a: "?"}
     var objarr = element.split(/(?=[A-Z])/).map(splitKat)
     for (var i=0;i<objarr.length;i++) {
       for (j in objarr[i]) {
-        obj[j] = objarr[i][j]
+        if (!obj[j]) obj[j] = 0
+        obj[j] += objarr[i][j]
       }
     }
     return obj
