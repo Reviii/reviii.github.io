@@ -25,6 +25,7 @@ constante=0;</textarea></div>
 <button onclick="start()">Start</button><button onclick="clearCanvas(elem('graph'))">Clear canvas</button><button onclick="elem('graph').toBlob(a=>alert(window.URL.createObjectURL(a)))">toBLob</button><button onclick="restartRender()">Restart Render</button><button onclick="alert(code)">Display Code</button>
 <script>
 var pen = new Worker("model.js");
+pen.onerror = a=>alert(a.message);
 var elem = id=>document.getElementById(id);
 var elnum = id=>Number(elem(id).value);
 var messages = {renderedLength: 0, t: new Float64Array(1)};
