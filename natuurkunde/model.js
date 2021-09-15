@@ -8,10 +8,11 @@ onmessage = function(options) {
     var nextLog = -dt/2; // small value used to center around timesteps, like Math.round instead of Math.ceil
     var tEnd = options.t;
     var buffLen = Math.ceil(tEnd/dtLog)*8+80;
-    var buffers = {t: new SharedArrayBuffer(buffLen)};
+    let Buffer = global.SharedArrayBuffer || global.ArrayBuffer;
+    var buffers = {t: new Buffer(buffLen)};
     var log = {loggedLength: 0, t: new Float64Array(buffers.t)};
     for (var i=0;i<options.vars.length;i++) {
-        buffers[options.vars[i]] = new SharedArrayBuffer(buffLen);
+        buffers[options.vars[i]] = new Buffer(buffLen);
         log[options.vars[i]] = new Float64Array(buffers[options.vars[i]]);
     }
     log.t.fill(-1);
@@ -28,10 +29,12 @@ onmessage = function(options) {
         }
         ${options.loop}
     }
+    ${global.sharedArrayBuffer ? "" : "postMessage(buffers);"}
     function logData(data, log) {
         for (var i in data) {
             log[i][log.loggedLength] = data[i];
         }
+        ${global.sharedArrayBuffer ? "" : "if (log.loggedLength%100===0) postMessage(buffers);"}
         log.loggedLength++;
     }`
     postMessage(code);

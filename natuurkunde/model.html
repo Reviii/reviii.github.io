@@ -30,6 +30,7 @@ var elem = id=>document.getElementById(id);
 var elnum = id=>Number(elem(id).value);
 var messages = {renderedLength: 0, t: new Float64Array(1)};
 messages.t.fill(-1);
+var restart = false;
 var options = {};
 var graphOptions = {α: {s:"3.14159265358979323846", color:"#f00"}, v: {s:"10", color:"#0ff"}, constante: {s:"1", color:"#000"}};
 updateVariableSelect(elem("vars").value.split(" "));
@@ -39,7 +40,11 @@ pen.onmessage = function(a) {
     if (typeof a.data == "string") { window.code = a.data; return }
     var ctx = elem("graph").getContext("2d");
     ctx.fillStyle = options.color;
-    messages = {renderedLength: 0};
+    messages = {renderedLength: messages.renderedLength};
+    if (restart) {
+        messages.renderedLength = 0;
+        restart = false;
+    }
     a = a.data;
     for (var i in a) {
         messages[i] = new Float64Array(a[i]);
@@ -80,6 +85,7 @@ function start() {
     var elnum = id=>Number(elem(id).value);
     pen.postMessage({vars:elem("vars").value.split(" "),init:elem("init").value,loop:elem("loop").value,beforeLog:elem("beforeLog").value,afterLog:elem("afterLog").value,t:elnum("t"),dt:elnum("dt"),dtLog:elnum("dtLog")});
     options = {t: elnum("t"), r: elnum("r"), s: elnum("s"), g: elem("g").value, color: elem("color").value, renderTime: elnum("renderTime")};
+    restart = true
 }
 function restartRender() {
     options = {t: elnum("t"), r: elnum("r"), s: elnum("s"), g: elem("g").value, color: elem("color").value, renderTime: elnum("renderTime")};
