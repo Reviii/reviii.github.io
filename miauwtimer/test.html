@@ -67,6 +67,11 @@ input {
 <div style="z-index: -1;display: flex;justify-content: center; align-items: center"><p id="demo" style="visibility:hidden;font-size: 16rem;min-width: 0;min-height: 0"></p></div>
 
 <script>
+window.onerror = function(message) {
+    document.getElementById("demo").innerText = message;
+}
+</script>
+<script>
 if (localStorage.miauwtimersettings) {
     var settings = JSON.parse(localStorage.miauwtimersettings);
 } else {
