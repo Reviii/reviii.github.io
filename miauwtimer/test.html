@@ -60,9 +60,8 @@ input {
 </style>
 </head>
 <body>
-<!-- Versie 5 feb 2020.settingsdefault.compatibility (experimentele versie) -->
-<div>
-<img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
+<!-- Versie 27 sep 2021.settings.format (experimentele versie) -->
+<div><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUCB1jYAACAAAFAAGNu5vzAAAAAElFTkSuQmCC  onclick="thema(nm+1)" alt="" /></div>
 <input id="input"><button onClick="start()" id="knop">aftellen!</button>
 <div style="z-index: -1;display: flex;justify-content: center; align-items: center"><p id="demo" style="visibility:hidden;font-size: 16rem;min-width: 0;min-height: 0"></p></div>
 
@@ -78,14 +77,14 @@ if (localStorage.miauwtimersettings) {
     var settings = {}
 }
 try { // add default values
-    let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={}} = settings;
-    settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}}}
+    let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={},format:i="s"} = settings;
+    settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}},format:i}
 } catch(err) {
     //settings = //blablabla
     alert("Your browser does not fully support destructering assignments")
 }
 var klok = false
-//var klok2 = setInterval(klokje, 50);
+if (!settings.parsedFormat) settings.parsedFormat = parseFormat(settings.format);
 document.body.addEventListener("keypress", toets)
 document.body.addEventListener("keydown", pijl)
 
@@ -198,14 +197,88 @@ if (Number.isNaN(f)) {
 }
 }
 
-var lastF;
+
+function parseFormat(format) {
+    var timeAmounts = {s: 1000, m: 1000*60, h: 1000*60*60, d: 1000*60*60*24, w: 1000*60*60*24*7};
+    var cur = "";
+    var dot = false;
+    var escaped = false;
+    var amount = 0;
+    var res = [];
+    var smallestAmount = Infinity;
+    for (let i=0;i<format.length;i++) {
+        var c = format.charAt(i);
+        switch (c) {
+        case cur:
+            amount++;
+            break;
+        case ".":
+            pushResObject(cur);
+            res.push(c);
+            amount = 0;
+            dot = true;
+            break;
+        case "\\":
+            pushResObject(cur);
+            cur = "";
+            amount = 0;
+            escaped = true;
+            break;
+        default:
+            pushResObject(cur);
+            if (timeAmounts[c]&&!escaped) {
+                cur = c;
+                amount = 1;
+            } else {
+                if ((typeof res[res.length-1])!=="string") {
+                    res.push(c);
+                } else {
+                    res[res.length-1] += c;
+                }
+                cur = "";
+                amount = 0;
+                escaped = false;
+            }
+            dot = false;
+            break;
+        }
+    }
+    pushResObject(cur);
+    return {format: res, smallestAmount};
+    function pushResObject(unit) {
+        if (!timeAmounts[unit]||amount===0) return;
+        if (dot) {
+            res.push({amount: timeAmounts[unit]/Math.pow(10, amount), minLength: amount});
+        } else {
+            res.push({amount: timeAmounts[unit], minLength: amount});
+        }
+        smallestAmount = Math.min(smallestAmount, res[res.length-1].amount);
+    }
+}
+
+function formatTime(time, format) {
+    var res = "";
+    for (let i=0;i<format.length;i++) {
+        if ((typeof format[i])==="string") {
+            res += format[i];
+            continue;
+        }
+        res += Math.floor(time/format[i].amount).toString().padStart(format[i].minLength, "0");
+        time %= format[i].amount;
+    }
+    return res;
+}
+
 function klokje() {
-    if (klok) requestAnimationFrame(klokje); else return;
-    var f = d - new Date();
-    f = Math.ceil(f/1000);
-    if (f!==lastF) document.getElementById("demo").innerHTML = Math.ceil(f);
-    lastF = f;
-    if (document.getElementById("demo").innerHTML < 0) {
+    if (klok) {
+        requestAnimationFrame(klokje);
+    } else {
+        return;
+    }
+    var time = d-Date.now();
+    time = Math.ceil(time/settings.parsedFormat.smallestAmount)*settings.parsedFormat.smallestAmount;
+    document.getElementById("demo").innerText = formatTime(time, settings.parsedFormat.format);
+    if (time < 0) {
         reset();
     }
 }

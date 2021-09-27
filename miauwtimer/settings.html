@@ -12,6 +12,7 @@
     <label><input type="checkbox" id="autofill_other_default">andere tijden:</label><input id="autofill_other_default_content"><br>
     <label><input type="checkbox" id="autofill_other_short">andere tijden bij verkort rooster:</label><input id="autofill_other_short_content">
 </div><br>
+format:<input id="format"><br>
 <script>
 try {
     if (!localStorage.miauwtimersettings) {
@@ -20,8 +21,8 @@ try {
         var settings = JSON.parse(localStorage.miauwtimersettings);
     }
     { // add default values
-        let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={}} = settings;
-        settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}}}
+        let {autostart:a=false,autofill:{enabled:b=true,o:c=true,b:d=true,other:{default:{enabled:e=false,content:f=""}={},short:{enabled:g=false,content:h=""}={}}={}}={},format:i="s"} = settings;
+        settings = {autostart:a,autofill:{enabled:b,o:c,b:d,other:{default:{enabled:e,content:f},short:{enabled:g,content:h}}},format:i}
     }
     function elem(id) { return document.getElementById(id); }
 
@@ -33,6 +34,7 @@ try {
     elem("autofill_other_default_content").value = settings.autofill.other.default.content;
     elem("autofill_other_short").checked = settings.autofill.other.short.enabled;
     elem("autofill_other_short_content").value = settings.autofill.other.short.content;
+    elem("format").value = settings.format;
     updateSettings();
 } catch(err) {
     delete localStorage.miauwtimersettings;
@@ -48,6 +50,7 @@ function updateSettings() {
     settings.autofill.other.default.content = elem("autofill_other_default_content").value;
     settings.autofill.other.short.enabled = elem("autofill_other_short").checked;
     settings.autofill.other.short.content = elem("autofill_other_short_content").value;
+    settings.format = elem("format").value;
     localStorage.miauwtimersettings = JSON.stringify(settings);
     elem("autofill_settings").style.display = settings.autofill.enabled ? "block" : "none";
     elem("autofill_other_default_content").style.display = settings.autofill.other.default.enabled ? "inline" : "none";
