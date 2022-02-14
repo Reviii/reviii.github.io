@@ -13,6 +13,9 @@
   <button onclick="reset()">Reset</button><button onclick="alert(metingen.join('\n'))">Metingen</button>
 <script src="SLR.js"></script>
 <script>
+window.onerror = function(message, source, lineno, colno) {
+  alert(message+"\n"+lineno+":"+colno);
+}
 var metingen = [];
 var meet = new SLR();
 var meetseries = [meet];
