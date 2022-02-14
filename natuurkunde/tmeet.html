@@ -11,35 +11,40 @@
   <button onclick="stop()" class="big">Pauze</button><button onclick="ronde()" class="big">Ronde</button>
   <p id="res" style="font-size: 4vw"></p>
   <button onclick="reset()">Reset</button><button onclick="alert(metingen.join('\n'))">Metingen</button>
-<script>
-var StdDev = function() {this.sum=0;this.sumSquares=0;this.n=0};
-StdDev.prototype.add = function(a) { this.sum+=a; this.sumSquares+=a*a; this.n++; return this; };
-StdDev.prototype.remove = function(a) { this.sum-=a; this.sumSquares-=a*a; this.n--; return this; };
-StdDev.prototype.get = function() { return Math.sqrt((this.sumSquares-this.sum*this.sum/this.n)/(this.n-1)); };
-StdDev.prototype.toString = function() { return (this.sum/this.n).toString()+"+-"+this.get(); };
-</script>
+<script src="SLR.js"></script>
 <script>
 var metingen = [];
-var meet = new StdDev();
-var bezig = false;
+var meet = new SLR();
+var meetseries = [meet];
 var lastT = 0;
 function stop() {
-  window.bezig = false;
+  meet = new SLR();
+  meetseries[meetseries.length] = meet;
 }
 function ronde() {
   var t = performance.now();
-  if (bezig) {
-    metingen[metingen.length] = t-lastT;
-    meet.add(t-lastT);
-  }
+  metingen[metingen.length] = "t: "+t+ (meet.n ? (" dt: "+(t-lastT)) : "");
+  meet.addPoint(meet.n+1, t);
   lastT = t;
-  bezig = true;
-  document.getElementById("res").innerText = "T = "+meet+" ms\nn = "+meet.n;
+  var txt = "";
+  var s = 0;
+  var w = 0;
+  for (let i=0;i<meetseries.length;i++) {
+    let m = meetseries[i];
+    let slope = m.getSlope();
+    let e2 = m.getSlopeErrorSquared(slope);
+    let e = Math.sqrt(e2);
+    s += slope/e2;
+    w += 1/e2;
+    txt += "Serie "+(i+1)+":\nT = "+slope+" +- "+e*2+"\nn = "+m.n+"\n";
+  }
+  if (meetseries.length>1) txt += "Totaal:\nT = "+(s/w)+" +- "+2*Math.sqrt(1/w); // weighted variance mean
+  document.getElementById("res").innerText = txt;
 }
 function reset() {
   metingen = [];
-  meet = new StdDev();
-  bezig = false;
+  meet = new SLR();
+  meetseries = [meet];
   document.getElementById("res").innerText = "";
 }
 </script>
