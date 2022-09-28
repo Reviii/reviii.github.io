@@ -1,63 +1,89 @@
-function divideByGcd(arr) {
-    let d = 0
-    for (let i=0;i<arr.length;i++) {
-        d = gcd(d, Math.abs(arr[i]))
+function solveEquationSystem(eqs, returnUnsolved=true) {
+    let varCounts = []
+    for (let i=0;i<eqs[0].length;i++) {
+        varCounts[i] = 0;
     }
-    if (d<=0) return arr
-    for (let i=0;i<arr.length;i++) {
-        arr[i] /= d
+    for (let i=0;i<eqs.length;i++) {
+        let eq = eqs[i];
+        for (let j=0;j<eq.length;j++) {
+            if (eq[j]!==0) varCounts[j]++;
+        }
     }
-    return arr
-}
-// note that extraCondition does not apply to very simple (variable=0) results
-function solveEquationSystem(equations, extraCondition=()=>true, returnUnsolved=false) {
-    equations.map(divideByGcd)
-    console.log(equations)
-    let sol = []
-    let didSomething = true
-    while (didSomething) {
-        didSomething = false
-        for (let i=0;i<equations.length;i++) {
-            let vars = []
-            for (let j=0;j<equations[i].length;j++) {
-                if (equations[i][j]) vars[vars.length] = j
+    varCounts = varCounts.map((count,i)=>{return {count,i}});
+    varCounts = varCounts.sort((a,b)=>a.count-b.count);
+    let used = [];
+    for (let i=0;i<varCounts.length;i++) {
+        let v = varCounts[i].i;
+        if (v===0) continue; // FIXME: this might interfere with unsolvable equation systems
+        let eqI = -1;
+        for (let j=0;j<eqs.length;j++) {
+            if (eqs[j][v]!==0&&!used[j]) {
+                eqI = j;
+                break;
             }
-            if (vars.length==0) {
-                equations.splice(i, 1)
-                i--
-                continue;
-            } else if (vars.length===1) {
-                for (let j=0;j<equations.length;j++) {
-                    if (j!==i) {
-                        equations[j][vars[0]] = 0
-                    }
-                }
-                sol[sol.length] = equations.splice(i, 1)[0]
-                i--
-            } else if (vars.length===2) {
-                for (let j=0;j<equations.length;j++) {
-                    if (equations[j][vars[1]]&&j!==i) {
-                        didSomething = true
-                        // make sure everything is divisable
-                        for (let k=0;k<equations[j].length;k++) {
-                            equations[j][k] *= equations[i][vars[1]]
-                        }
-                        equations[j][vars[0]] -= equations[j][vars[1]] * equations[i][vars[0]] / equations[i][vars[1]]
-                        equations[j][vars[1]] = 0
-
-                        divideByGcd(equations[j])
-                    }
-                }
-                if (extraCondition(equations[i])) {
-                    sol[sol.length] = equations.splice(i, 1)[0]
-                    i--
-                }
-                console.log(equations)
+        }
+        if (eqI===-1) {
+            console.log("Equation not found", v);
+            continue;
+        }
+        used[eqI] = true;
+        for (let j=0;j<eqs.length;j++) {
+            if (j===eqI) continue;
+            eqs[j] = substitute(eqs[j], eqs[eqI], v);
+            eqs[j].source += " ("+eqs[eqI].source+")"
+            if (Number.isNaN(eqs[j][0])) eqs.splice(j,1);
+        }
+        // TODO: maybe update varCounts?
+    }
+    for (let i=0;i<eqs.length;i++) {
+        let eq = eqs[i];
+        let v = -1;
+        for (let j=eq.length-1;j>=0;j--) {
+            if (eq[j]!==0) {
+                v = j
+                break;
             }
+        }
+        if (v===-1) continue;
+        for (let j=0;j<eqs.length;j++) {
+            if (j===i) continue;
+            eqs[j] = substitute(eqs[j], eqs[i], v);
+        }
+    }
+    let solved = [];
+    let unsolved = [];
+    for (let i=0;i<eqs.length;i++) {
+        let eq = eqs[i];
+        if (eq[0]===0) {
+            unsolved.push(eq);
+            break;
+        }
+        let varCount = 0;
+        for (let j=0;j<eq.length;j++) {
+            if (eq[j]!==0) varCount++;
+        }
+        if (varCount===2) {
+            solved.push(eq);
+        } else {
+            unsolved.push(eq);
         }
     }
     if (returnUnsolved) {
-        return {solved: sol, unsolved: equations}
+        return {solved, unsolved, eqs};
+    } else {
+        return solved;
     }
-    return sol;
+}
+function substitute(eqA, eqB, v) {
+    let g = gcd(eqA[v], eqB[v]);
+    let factorA = eqB[v]/g;
+    let factorB = eqA[v]/g;
+    for (let i=0;i<eqA.length;i++) {
+        eqA[i] = eqA[i]*factorA-eqB[i]*factorB;
+    }
+    g = eqA.reduce((a,b)=>gcd(a,b));
+    for (let i=0;i<eqA.length;i++) {
+        eqA[i] /= g;
+    }
+    return eqA;
 }
